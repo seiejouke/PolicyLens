@@ -35,3 +35,6 @@ De app zelf heeft hiervoor geen extra pakket nodig.
 De user-stories zijn hier visueel uitgewerkt, niet functioneel gebouwd. Zie
 [de scope-notitie](docs/IMPLEMENTATIE.md). De Python GUI-code staat in
 [main.py](main.py).
+
+Voor de gebruikte GenAI-prompts en eigen keuzes, zie het
+[GenAI-logboek](docs/GENAI-LOG.md).
