@@ -7,12 +7,16 @@ wachtwoorden, persoonsgegevens of andere gevoelige gegevens op.
 
 ## Controle op volledigheid — 2026-11-11
 
-De eerdere versie bevatte 23 geciteerde prompts. Na vergelijking met de lokale
-Codex- en Copilot-gespreksbestanden zijn hier **47 gebruikersprompts uit zes
-sessies** opgenomen: **24 ontbrekende prompts toegevoegd**. Ook zijn **vijf
+De eerdere versie bevatte 23 geciteerde prompts. Bij de controle zijn na
+vergelijking met de lokale Codex- en Copilot-gespreksbestanden **47
+gebruikersprompts uit zes sessies** opgenomen: **24 ontbrekende prompts
+toegevoegd**. Ook zijn **vijf
 antwoorden uit keuzedialogen** vastgelegd. De eerdere onbekende datums zijn
 hersteld. Eén bestaand citaat is gecorrigeerd naar de oorspronkelijke tekst:
 `naar an absolute` was in de bron `naar aan absolute` (S4-09).
+
+Na die controle zijn leervragen S6-05 en S6-06 toegevoegd. Het actuele logboek bevat
+**49 gebruikersprompts** en vijf antwoorden uit keuzedialogen.
 
 De aanvullingen betreffen de projectomgeving en Git-uitleg op 30 oktober, de
 MVP-inschatting en bouw op 6 november, drie expliciete scope-/Tkinter-prompts en
@@ -28,7 +32,7 @@ twee commit-/push-prompts op 10 november, en de sessies van 11 november.
   omgerekend naar **Europe/Amsterdam**. De ID's verwijzen naar de bron en de
   volgorde van het gebruikersbericht binnen die bron.
 - **Afbakening:** dit dekt alle teruggevonden gebruikersprompts in deze zes
-  lokale sessies tot en met S6-04. Gesprekken op andere apparaten, in andere
+  lokale sessies tot en met S6-06. Gesprekken op andere apparaten, in andere
   accounts of verwijderde chats zijn hiermee niet bewezen volledig. Er is
   bijvoorbeeld geen teruggevonden prompt voor het oorspronkelijke opstellen
   van de LU3-/LU4-documenten; hun aanwezigheid bewijst die prompt niet.
@@ -52,8 +56,8 @@ onderdeel van de oorspronkelijke prompt zichtbaar.
 | S3 | 2026-11-06 | `01a1b03b-f952-7200-b76d-321ff36913c4` (Codex) | 7 |
 | S4 | 2026-11-07 t/m 2026-11-10 | `a5cc83cf-edcd-492a-b10f-56335fa18c13` (Copilot) | 28 |
 | S5 | 2026-11-11 | `c4979235-24b0-46ab-82f6-5a01bbf512b9` (Copilot) | 1 |
-| S6 | 2026-11-11 | `01a1cb9a-8038-76b2-b3c9-71cda7b662e6` (Codex, huidig gesprek) | 4 |
-| **Totaal** | | | **47** |
+| S6 | 2026-11-11 | `01a1cb9a-8038-76b2-b3c9-71cda7b662e6` (Codex, huidig gesprek) | 6 |
+| **Totaal** | | | **49** |
 
 De lokale bronbestanden staan buiten de repository:
 
@@ -548,3 +552,41 @@ vast. Als een bron ontbreekt, label de tekst als **reconstructie** of
   De wijzigingen betreffen alleen dit logboek; er zijn geen applicatietests
   opnieuw uitgevoerd. De grenzen van de beschikbare geschiedenis staan in
   de volledigheidscontrole bovenaan.
+
+### 2026-11-11 — main.py regel voor regel begrijpen en zelf herschrijven
+
+**Prompt S6-05 — 2026-11-11 19:27:34**
+
+> explain the main.py code line by line so I can re-write and understand the code myself.
+
+- **AI-bijdrage:** De 184 regels van de huidige hoofdapplicatie gelezen en
+  uitgelegd hoe de imports, voorbeeldgegevens, SQLite-functies, Tkinter-klasse,
+  widgets, callbacks en programmastart samenwerken.
+- **Eigen keuze:** De gebruiker wil de code zelf kunnen herschrijven en
+  begrijpen, en vraagt daarom om uitleg per regel.
+- **Controle/uitkomst:** De uitleg is gebaseerd op de huidige `main.py` in de
+  projecthoofdmap. Applicatiecode is niet gewijzigd en er zijn geen
+  applicatietests uitgevoerd; deze taak betreft uitleg en registratie.
+### 2026-11-11 — hoofdstukken uit twee leerboeken koppelen aan main.py
+
+**Prompt S6-06 — 2026-11-11 19:40:31**
+
+> Which chapters in Python Crash Course 3th edition and \
+> **Python GUI Programming with Tkinter - Second Edition**   explain how to build the code in main.py
+
+- **AI-bijdrage:** De inhoudsopgaven van Python Crash Course (3e editie) en
+  Python GUI Programming with Tkinter (2e editie) gecontroleerd en relevante
+  hoofdstukken gekoppeld aan de Python-basis, widgets, callbacks, klassen,
+  Treeview-tabellen en databasefuncties in `main.py`.
+- **Eigen keuze:** De gebruiker wil de applicatie zelf leren bouwen met deze
+  twee boeken en vraagt welke hoofdstukken daarvoor nodig zijn.
+- **Controle/uitkomst:** De Python-basis past bij PCC-hoofdstukken 2–6 en
+  8–10; de GUI vooral bij Tkinter-hoofdstukken 1, 3, 4 en 8. Appendix B behandelt
+  SQL-basiskennis. Hoofdstuk 12 gebruikt PostgreSQL/psycopg2; voor de gebruikte
+  SQLite-aanroepen en `contextlib.closing` is aanvullende Python-documentatie
+  nodig. Bronnen: [PCC-inhoudsopgave](https://nostarch.com/download/PCC3e_detailedTOC.pdf),
+  [Tkinter-inhoudsopgave van de uitgever](https://leanpub.com/pythonguiprogrammingwithtkinter-secondedition),
+  [databasehoofdstuk](https://subscription.packtpub.com/book/programming/9781801815925/12/ch12lvl1sec63/connecting-to-postgresql-with-psycopg2),
+  [sqlite3](https://docs.python.org/3/library/sqlite3.html) en
+  [contextlib.closing](https://docs.python.org/3/library/contextlib.html#contextlib.closing).
+  Alleen het logboek is bijgewerkt; de applicatiecode is ongewijzigd.
