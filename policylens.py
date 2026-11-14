@@ -5,26 +5,88 @@ import tkinter as tk
 # Create the root window
 root = tk.Tk()
 root.configure(bg='white')
+search_text = tk.StringVar # store search text?
 # Set the title
 root.title("Policy lens")
 # Set the root window size
 root.geometry('800x600')
 root.resizable(False, False)
+# What does the header do?
+header = tk.Frame(root, bg="#264A5F")
+header.pack(fill="x")
 # Use a label to show the title
 title = tk.Label(
-    root,
-    text='PolicyLens',
-    font=('Arial 16 bold'),
-    bg='#264A5F',
-    fg='#FFFFFF', # root is already set white?
-    anchor='w',
+    header, # places the title into the header?
+    text="POLICYLENS NL",
+    font=("Arial", 16, "bold"),
+    bg="#264A5F",
+    fg="white",
+    anchor="w",
     padx=16,
     pady=12
 )
-title.pack(fill='x')
+title.pack(side="left")
 #---
-name_label = tk.Label(
-    root,
+burger_page = tk.Frame(root, bg='#FFFFFF') # stakeholder; burger
+onderzoeker_page = tk.Frame(root, bg='#FFFFFF') # stakeholder; onderzoeker
+#--- stakeholder function
+def show_page(page): # Place at top of of script or separate function script?
+    burger_page.pack_forget() # container for burger; 'forgets' depending on which is called
+    onderzoeker_page.pack_forget() # container for onderzoeker; 'forget' depending on...
+    page.pack(fill='both', expand=True) # make selected container/UI the sole viewed UI
+#--- search bar function
+def make_search_bar(parent, text_var):
+    search_row = tk.Frame(parent, bg='white')
+    search_row.pack(fill="x", padx=22, pady=8)
+#---Search button
+    search_btn = tk.Button(
+        search_row,
+        text='Zoeken',
+        bg='#264A5F',
+        fg="white",
+        relief="flat",
+        padx=20
+    )
+    search_btn.pack(side='right', fill='y', padx=(10, 0))
+#---Entry field
+    name_inp = tk.Entry(
+        search_row,
+        font=('Arial 20 bold', 16),
+        insertbackground="#264A5F",
+        insertwidth=4,
+    )
+    name_inp.configure( # Adjust the default dropshadow around the input box (looks neater)
+        relief='flat',
+        borderwidth=0,
+        highlightthickness=1,
+        highlightbackground='#CBD5DC',
+        highlightcolor='#264A5F'
+    )
+    name_inp.pack(
+        side="left",
+        fill="x",
+        expand=True,
+        ipady=10
+    )
+
+    return name_inp   
+#---
+onderzoek_btn = tk.Button( # onderzoeker button
+    header,
+    text='Onderzoek',
+    command=lambda: show_page(onderzoeker_page) # what does lambda do?
+)
+onderzoek_btn.pack(side='right', padx=8)
+#--- BURGER CONTENT STARTS HERE!
+burger_btn = tk.Button( # burger button
+    header,
+    text='Burger',
+    command=lambda: show_page(burger_page)
+)
+burger_btn.pack(side='right', padx=8)
+#--- 
+name_label = tk.Label( # content for burger
+    burger_page,
     text='Vind documenten over data en privacy',
     font=('Arial 16 bold'),
     bg='#FFFFFF', # root is already white?
@@ -35,8 +97,8 @@ name_label = tk.Label(
 )
 name_label.pack(fill='x')
 #---
-name_label = tk.Label(
-    root,
+name_label = tk.Label( # content for burger
+    burger_page,
     text='Search for keywords; eq data, iso or NISP2',
     font=('Arial 11 bold'),
     bg='#FFFFFF', # root is already white?
@@ -47,52 +109,18 @@ name_label = tk.Label(
 )
 name_label.pack(fill='x') # Placing the label as a widget
 #---
-search_row = tk.Frame(root, bg='white')
-search_row.pack(fill="x", padx=22, pady=8)
-#---Search button
-search_btn = tk.Button(
-    search_row,
-    text='Zoeken',
-    bg='#264A5F',
-    fg="white",
-    relief="flat",
-    padx=20
+
+#--- ONDERZOEKER CONTENT STARTS HERE!
+research_heading = tk.Label(
+    onderzoeker_page, # function for onderzoeker container
+    text='Onderzoek parlementarire documenten',
+    font=('Arial 16 bold'),
+    bg='#FFFFFF', # root is already white?
+    fg='#264A5F',
+    anchor='w',
+    padx=24,
+    pady=24
 )
-search_btn.pack(side='right', fill='y', padx=(10, 0))
-#---Input button
-name_inp = tk.Entry(
-    search_row,
-    font=('Arial 20 bold', 16),
-    insertbackground="#264A5F",
-    insertwidth=4,
-)
-name_inp.configure( # Adjust the default dropshadow around the input box (looks neater)
-    relief='flat',
-    borderwidth=0,
-    highlightthickness=1,
-    highlightbackground='#CBD5DC',
-    highlightcolor='#264A5F'
-)
-name_inp.pack(
-    side="left",
-    fill="x",
-    expand=True,
-    ipady=10
-)
-#------*HBO-ICT-DT Module-2*------#
-#              ____               #  
-#       _,-ddd888888bbb-._        #
-#     d88888888888888888888b      #
-#   d888888888888888888888888b    # 
-#  6888888888888888888888888889   #
-#  68888b8""8q8888888p8""8d88889  #
-#  `d8887     p88888q     4888b'  #
-#   `d8887    p88888q    4888b'   #
-#     `d887   p88888q   488b'     #
-#       `d8bod8888888dob8b'       #
-#         `d88888888888d'         #
-#           `d8888888b'           #
-#             `d8888b'            #
-#               `bd'              #
-#-------------Take-off!-----------# 
+research_heading.pack(fill='x')
+#---
 root.mainloop()
