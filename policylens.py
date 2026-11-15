@@ -1,11 +1,81 @@
 """A policylens for searching and retreiving data from the TweedeKamer API to a local database"""
 
 import tkinter as tk
+from tkinter import ttk
+import csv
 
+CSV_FILE = Path(__file__).with_name( # how does this work exactly
+    'policylens_mock_tweede_kamer.csv'
+)
+
+def load_mock_document():
+    with CSV_FILE.open(
+        encoding='utf-8-sig', # what is this?
+        newline=''
+    ) as csv_file:
+        reader= csv.Dictreader(csv_file)
+        return list(reader)
+def search_burger():
+    term = search_text.get()
+
+    for item in burger_results.get_children():
+        burger_results.delete(item)
+
+    if len(term) < 2:
+        burger_status.set('Vul minimaal twee tekens in.')
+        return
+
+    try:
+        documents = load_mock_document()
+    except (OSError, UnicodeError, csv.Error) as error:
+        burger_status.set(f'CSV kon niet worden gelezen: {error}')
+        return
+
+    matches = []
+
+    for document in documents:
+        if document['Verwijderd'].casefold() == 'true':
+            continue
+
+        searchable_text = (
+            document['Titel'] + ' ' + document['Onderwerp']
+        )
+
+        if term in searchable_text.casefold():
+            matches.append(document)
+
+     matches.sort(
+         key=lambda document: document['Datum'],
+         reverse=True
+     )
+
+    retrieved = matches[:25]
+    visible = retrieved[:10]
+
+    for document in visible:
+        burger_results.insert(
+            '',
+            tk.END,
+            values=(
+                document['Titel'],
+                document['Datum'],
+                document['Soort']
+         )
+    )
+
+    if visible:
+        burger_status.set(
+            f'Fictieve CSV-data: {len(len(visible)} resultaten getoond.'
+        )
+    else:
+        burger_status.set('Geen documenten gevonden.')
+
+
+    
 # Create the root window
 root = tk.Tk()
 root.configure(bg='white')
-search_text = tk.StringVar # store search text?
+search_text = tk.StringVar() # store search text?
 # Set the title
 root.title("Policy lens")
 # Set the root window size
@@ -35,7 +105,7 @@ def show_page(page): # Place at top of of script or separate function script?
     onderzoeker_page.pack_forget() # container for onderzoeker; 'forget' depending on...
     page.pack(fill='both', expand=True) # make selected container/UI the sole viewed UI
 #--- search bar function
-def make_search_bar(parent, text_var):
+def make_search_bar(parent, text_var, on_search=None):
     search_row = tk.Frame(parent, bg='white')
     search_row.pack(fill="x", padx=22, pady=8)
 #---Search button
@@ -51,7 +121,8 @@ def make_search_bar(parent, text_var):
 #---Entry field
     name_inp = tk.Entry(
         search_row,
-        font=('Arial 20 bold', 16),
+        textvariable=text_var, # what does this do? | connect entry to the variable passed into the function?
+        font=('Arial', 16, 'bold'),
         insertbackground="#264A5F",
         insertwidth=4,
     )
@@ -70,6 +141,39 @@ def make_search_bar(parent, text_var):
     )
 
     return name_inp   
+#---
+#---  Onderzoeker search bar function
+def make_search_bar_onderzoeker(parent, label_text):
+    filter_label = tk.Label(
+        parent,
+        text=label_text,
+        bg='#FFFFFF'
+    )
+    filter_label.pack(
+        anchor='w',
+        padx=22
+    )
+    filter_inp = tk.Entry(
+        parent,
+        font=('Arial', 12),
+        insertbackground='#264A5F',
+        insertwidth=3
+    )
+    filter_inp.configure(
+        relief='flat',
+        borderwidth=0,
+        highlightthickness=1,
+        highlightbackground='#CBD5DC',
+        highlightcolor='#264A5F'
+    )
+    filter_inp.pack(
+        fill='x',
+        padx=22,
+        pady=(4, 12),
+        ipady=6
+    )
+
+    return filter_inp
 #---
 onderzoek_btn = tk.Button( # onderzoeker button
     header,
@@ -109,7 +213,24 @@ name_label = tk.Label( # content for burger
 )
 name_label.pack(fill='x') # Placing the label as a widget
 #---
+burger_input = make_search_bar(
+    burger_page,
+    search_text,
+    on_search=search_burger
+)
 
+burger_status = tk.StringVar(
+    value='Zoek in de fictieve CSV-data.'
+)
+
+burger_status_label = tk.Label(
+    burger_page,
+    textvariable=burger_status,
+    bg='#FFFFFF',
+    fg='#264A5F',
+    anchor='w'
+)
+burger_
 #--- ONDERZOEKER CONTENT STARTS HERE!
 research_heading = tk.Label(
     onderzoeker_page, # function for onderzoeker container
@@ -122,5 +243,27 @@ research_heading = tk.Label(
     pady=24
 )
 research_heading.pack(fill='x')
+#--- 
+research_input = make_search_bar(
+    onderzoeker_page,
+    search_text
+)
+#--- Onderzoeker filters from function
+from_date_inp = make_search_bar_onderzoeker(
+    onderzoeker_page,
+    'Vanaf datum (dd-mm-jjjj)'
+)
+
+to_date_inp = make_search_bar_onderzoeker(
+    onderzoeker_page,
+    'Tot datum (dd-mm-jjjj)'
+)
+
+document_type_inp = make_search_bar_onderzoeker(
+    onderzoeker_page,
+    'Documenttype'
+)
+
+show_page(burger_page)
 #---
 root.mainloop()
