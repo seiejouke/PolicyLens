@@ -3,7 +3,8 @@
 import tkinter as tk
 from tkinter import ttk
 import csv
-from pathlib import Path
+from pathlib import Path # for csv
+from datetime import datetime # checking and verifying dates for mock searches
 
 CSV_FILE = Path(__file__).with_name( # Path called from pathlib/Path
     'policylens_mock_tweede_kamer.csv'
@@ -72,7 +73,90 @@ def search_burger():
     else:
         burger_status.set('Geen documenten gevonden.')
 
+def search_researcher():
+    term = search_text.get().strip().casefold() # remove empty space and force to lowercase (better searches)
+    from_text = from_date_inp.get().strip()
+    to_text = to_date_inp.get().strip()
+    document_type = document_type_inp.get().strip().casefold()
+
+    for item in research_results.get_children():
+        research_results.delete(item)
+
+    if len(term) < 2:
+        research_status.set('Vul minimaal twee tekens in.') # Misschien wat te kort? Hoe kom ik hierachter?
+        return
+
+    from_date = None
+    to_date = None
+
+    try:
+        if from_text:
+            from_date = datetime.strptime(from_text, '%d-%m-%Y') # dd-mm-jjjj indeling
+        if to_text:
+            to_date = datetime.strptime(to_text, '%d-%m-%Y')
+    except ValueError:
+        research_status.set('Gebruik geldige datums als dd-mm-jjjj.')
+        return
+
+    if from_date and to_date and from_date > to_date:
+        research_status.set('Vanaf datum mag niet na Tot datum liggen')
+        return
     
+    try:
+        documents = load_mock_document()
+    except (OSError, UnicodeError, csv.Error) as error: # How does this work exactly? review
+        research_status.set(f'CSV kon niet worden gelezen: {error}')
+        return
+
+    matches = []
+
+    for document in documents:
+        if document['Verwijderd'].casefold() == 'true':
+            continue # how does his work exactly? review
+
+        searchable_text = document['Titel'] + ' ' + document['Onderwerp']
+
+        if term in searchable_text.casefold():
+            matches.append(document) # If search term and document terms match, we add the doc
+
+    matches.sort(
+        key=lambda document: document['Datum'],
+        reverse=True
+    )
+    retrieved = matches[:25] # limit data pulls; vague process?
+    visible = [] # what does this do? pull 25 into empty?
+
+    for document in retrieved:
+        document_date = datetime.strptime(document['Datum'], '%Y-%m-%d') # why is date in reverse?
+
+        if from_date and document_date < from_date:
+            continue # check date search logic 
+        if to_date and document_date > to_date:
+            continue # more date checking logic
+        if document_type and document_type != 'alle soorten':
+            if document['Soort'].casefold() != document_type: # Hoe werkt dit?
+                continue
+
+        visible.append(document) # add documents after logic function sorting
+
+    for document in visible:
+        research_results.insert( # How does this work? 
+            '',
+            tk.END, 
+            values=(
+                document['Titel'],
+                document['Datum'],
+                document['Soort']
+            )
+        )
+
+    if visible:
+        research_status.set(
+            f'{len(visible)} resultaten uit {len(retrieved)} opgehaalde records (fictief).' # hoe werkt dit?            
+        )
+    else:
+        research_status.set('Geen documenten gevondeon met deze zoekterm en filters.')    
+
 # Create the root window
 root = tk.Tk()
 root.configure(bg='white')
@@ -80,8 +164,9 @@ search_text = tk.StringVar() # store search text?
 # Set the title
 root.title("Policy lens")
 # Set the root window size
-root.geometry('800x600')
-root.resizable(False, False)
+root.geometry('900x700')
+root.minsize(800, 600)
+root.resizable(True, True) # Need to fit the onderzoeker results!
 # What does the header do?
 header = tk.Frame(root, bg="#264A5F")
 header.pack(fill="x")
@@ -171,8 +256,8 @@ def make_search_bar_onderzoeker(parent, label_text):
     filter_inp.pack(
         fill='x',
         padx=22,
-        pady=(4, 12),
-        ipady=6
+        pady=(2, 6), # side adjusted to fit search results !
+        ipady=3
     )
 
     return filter_inp
@@ -269,13 +354,14 @@ research_heading = tk.Label(
     fg='#264A5F',
     anchor='w',
     padx=24,
-    pady=24
+    pady=10
 )
 research_heading.pack(fill='x')
 #--- 
 research_input = make_search_bar(
     onderzoeker_page,
-    search_text
+    search_text,
+    on_search=search_researcher # added search functionality
 )
 #--- Onderzoeker filters from function
 from_date_inp = make_search_bar_onderzoeker(
@@ -291,6 +377,68 @@ to_date_inp = make_search_bar_onderzoeker(
 document_type_inp = make_search_bar_onderzoeker(
     onderzoeker_page,
     'Documenttype'
+)
+
+research_status = tk.StringVar(
+    value='Zoek in fictieve CSV-data. Lege filters worden niet toegepast.'
+)
+
+research_status_label = tk.Label(
+    onderzoeker_page,
+    textvariable=research_status,
+    bg='#FFFFFF',
+    fg='#264A5F',
+    anchor='w'
+)
+research_status_label.pack(
+    fill='x',
+    padx=22,
+    pady=(4, 8)
+)
+
+research_results_frame = tk.Frame(
+    onderzoeker_page,
+    bg='#FFFFFF'
+)
+research_results_frame.pack(
+    fill='both',
+    expand=True,
+    padx=22,
+    pady=(0, 12)
+)
+
+research_results = ttk.Treeview( # How does this work exactly? review!
+    research_results_frame,
+    columns=('Titel', 'Datum', 'Soort'),
+    show='headings',
+    height=6
+)
+
+research_results.heading('Titel', text='Titel')
+research_results.heading('Datum', text='Datum')
+research_results.heading('Soort', text='Documentsoort')
+
+research_results.column('Titel', width=450)
+research_results.column('Datum', width=110, stretch=False)
+research_results.column('Soort', width=150, stretch=False)
+
+research_scrollbar = ttk.Scrollbar(
+    research_results_frame,
+    orient='vertical',
+    command=research_results.yview
+)
+research_scrollbar.pack(
+    side='right',
+    fill='y'
+)
+
+research_results.configure(
+    yscrollcommand=research_scrollbar.set
+)
+research_results.pack(
+    side='left',
+    fill='both',
+    expand=True
 )
 
 show_page(burger_page)
