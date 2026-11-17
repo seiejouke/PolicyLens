@@ -3,8 +3,9 @@
 import tkinter as tk
 from tkinter import ttk
 import csv
+from pathlib import Path
 
-CSV_FILE = Path(__file__).with_name( # how does this work exactly
+CSV_FILE = Path(__file__).with_name( # Path called from pathlib/Path
     'policylens_mock_tweede_kamer.csv'
 )
 
@@ -13,10 +14,11 @@ def load_mock_document():
         encoding='utf-8-sig', # what is this?
         newline=''
     ) as csv_file:
-        reader= csv.Dictreader(csv_file)
+        reader= csv.DictReader(csv_file)
         return list(reader)
 def search_burger():
-    term = search_text.get()
+    term = search_text.get().strip().casefold() 
+    #.strip() verwijdert omliggende spaties. .casefold() zorgt dat bijvoorbeeld DATA ook overeenkomt met data
 
     for item in burger_results.get_children():
         burger_results.delete(item)
@@ -44,10 +46,10 @@ def search_burger():
         if term in searchable_text.casefold():
             matches.append(document)
 
-     matches.sort(
-         key=lambda document: document['Datum'],
-         reverse=True
-     )
+    matches.sort(
+        key=lambda document: document['Datum'],
+        reverse=True
+    )
 
     retrieved = matches[:25]
     visible = retrieved[:10]
@@ -65,11 +67,10 @@ def search_burger():
 
     if visible:
         burger_status.set(
-            f'Fictieve CSV-data: {len(len(visible)} resultaten getoond.'
+            f'Fictieve CSV-data: {len(visible)} resultaten getoond.'
         )
     else:
         burger_status.set('Geen documenten gevonden.')
-
 
     
 # Create the root window
@@ -112,6 +113,7 @@ def make_search_bar(parent, text_var, on_search=None):
     search_btn = tk.Button(
         search_row,
         text='Zoeken',
+        command=on_search,
         bg='#264A5F',
         fg="white",
         relief="flat",
@@ -230,7 +232,34 @@ burger_status_label = tk.Label(
     fg='#264A5F',
     anchor='w'
 )
-burger_
+burger_status_label.pack(
+    fill='x',
+    padx=22,
+    pady=(4, 8)
+)
+
+burger_results = ttk.Treeview(
+    burger_page,
+    columns=('Titel', 'Datum', 'Soort'),
+    show='headings',
+    height=10
+)
+
+burger_results.heading('Titel', text='Titel')
+burger_results.heading('Datum', text='Datum')
+burger_results.heading('Soort', text='Documentsoort')
+
+burger_results.column('Titel', width=450)
+burger_results.column('Datum', width=110, stretch=False)
+burger_results.column('Soort', width=150, stretch=False)
+
+burger_results.pack(
+    fill='both',
+    expand=True,
+    padx=22,
+    pady=(0, 12)
+)
+
 #--- ONDERZOEKER CONTENT STARTS HERE!
 research_heading = tk.Label(
     onderzoeker_page, # function for onderzoeker container
