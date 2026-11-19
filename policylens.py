@@ -210,14 +210,14 @@ root.geometry('900x700')
 root.minsize(800, 600)
 root.resizable(True, True) # Need to fit the onderzoeker results!
 # What does the header do?
-header = tk.Frame(root, bg="#264A5F")
+header = tk.Frame(root, bg="#193548")
 header.pack(fill="x")
 # Use a label to show the title
 title = tk.Label(
     header, # places the title into the header?
     text="POLICYLENS NL",
     font=("Arial", 16, "bold"),
-    bg="#264A5F",
+    bg="#193548",
     fg="white",
     anchor="w",
     padx=16,
@@ -232,6 +232,28 @@ def show_page(page): # Place at top of of script or separate function script?
     burger_page.pack_forget() # container for burger; 'forgets' depending on which is called
     onderzoeker_page.pack_forget() # container for onderzoeker; 'forget' depending on...
     page.pack(fill='both', expand=True) # make selected container/UI the sole viewed UI
+
+    # Beide knoppen eerst hun gewone kleur geven
+    burger_btn.configure(
+        bg='#35566A', fg='white',
+        activebackground='#35566A', activeforeground='white'
+    )
+    onderzoek_btn.configure(
+        bg='#35566A', fg='white',
+        activebackground='#35566A', activeforeground='white'
+    )
+
+    # Daarna de knop van de gekozen pagina kleuren
+    if page is burger_page:
+        burger_btn.configure(
+            bg='#117D8D', fg='white',
+            activebackground='#117D8D', activeforeground='white'
+        )
+    else:
+        onderzoek_btn.configure(
+            bg='#117D8D', fg='white',
+            activebackground='#117D8D', activeforeground='white'
+        )
 #--- search bar function
 def make_search_bar(parent, text_var, on_search=None):
     search_row = tk.Frame(parent, bg='white')
@@ -241,8 +263,10 @@ def make_search_bar(parent, text_var, on_search=None):
         search_row,
         text='Zoeken',
         command=on_search,
-        bg='#264A5F',
+        bg='#117D8D',
         fg="white",
+        activebackground='#117D8D',
+        activeforeground='white',
         relief="flat",
         padx=20
     )
@@ -307,14 +331,20 @@ def make_search_bar_onderzoeker(parent, label_text):
 onderzoek_btn = tk.Button( # onderzoeker button
     header,
     text='Onderzoek',
-    command=lambda: show_page(onderzoeker_page) # what does lambda do?
+    command=lambda: show_page(onderzoeker_page), # what does lambda do?
+    relief='flat',
+    padx=16,
+    pady=8
 )
 onderzoek_btn.pack(side='right', padx=8)
 #--- BURGER CONTENT STARTS HERE!
 burger_btn = tk.Button( # burger button
     header,
     text='Burger',
-    command=lambda: show_page(burger_page)
+    command=lambda: show_page(burger_page),
+    relief='flat',
+    padx=16,
+    pady=8
 )
 burger_btn.pack(side='right', padx=8)
 #--- 
