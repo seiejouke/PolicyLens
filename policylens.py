@@ -210,14 +210,14 @@ root.geometry('900x700')
 root.minsize(800, 600)
 root.resizable(True, True) # Need to fit the onderzoeker results!
 # What does the header do?
-header = tk.Frame(root, bg="#193548")
+header = tk.Frame(root, bg="#264A5F")
 header.pack(fill="x")
 # Use a label to show the title
 title = tk.Label(
     header, # places the title into the header?
     text="POLICYLENS NL",
     font=("Arial", 16, "bold"),
-    bg="#193548",
+    bg="#264A5F",
     fg="white",
     anchor="w",
     padx=16,
@@ -235,24 +235,24 @@ def show_page(page): # Place at top of of script or separate function script?
 
     # Beide knoppen eerst hun gewone kleur geven
     burger_btn.configure(
-        bg='#35566A', fg='white',
-        activebackground='#35566A', activeforeground='white'
+        bg='white', fg='#264A5F',
+        activebackground='white', activeforeground='#264A5F'
     )
     onderzoek_btn.configure(
-        bg='#35566A', fg='white',
-        activebackground='#35566A', activeforeground='white'
+        bg='white', fg='#264A5F',
+        activebackground='white', activeforeground='#264A5F'
     )
 
     # Daarna de knop van de gekozen pagina kleuren
     if page is burger_page:
         burger_btn.configure(
-            bg='#117D8D', fg='white',
-            activebackground='#117D8D', activeforeground='white'
+            bg='#264A5F', fg='white',
+            activebackground='#264A5F', activeforeground='white'
         )
     else:
         onderzoek_btn.configure(
-            bg='#117D8D', fg='white',
-            activebackground='#117D8D', activeforeground='white'
+            bg='#264A5F', fg='white',
+            activebackground='#264A5F', activeforeground='white'
         )
 #--- search bar function
 def make_search_bar(parent, text_var, on_search=None):
@@ -263,10 +263,8 @@ def make_search_bar(parent, text_var, on_search=None):
         search_row,
         text='Zoeken',
         command=on_search,
-        bg='#117D8D',
+        bg='#264A5F',
         fg="white",
-        activebackground='#117D8D',
-        activeforeground='white',
         relief="flat",
         padx=20
     )
@@ -331,7 +329,7 @@ def make_search_bar_onderzoeker(parent, label_text):
 onderzoek_btn = tk.Button( # onderzoeker button
     header,
     text='Onderzoek',
-    command=lambda: show_page(onderzoeker_page), # what does lambda do?
+    command=lambda: show_page(onderzoeker_page), # Wait for action until activated
     relief='flat',
     padx=16,
     pady=8
@@ -341,7 +339,7 @@ onderzoek_btn.pack(side='right', padx=8)
 burger_btn = tk.Button( # burger button
     header,
     text='Burger',
-    command=lambda: show_page(burger_page),
+    command=lambda: show_page(burger_page), # Wait for action until activated
     relief='flat',
     padx=16,
     pady=8
@@ -352,7 +350,7 @@ name_label = tk.Label( # content for burger
     burger_page,
     text='Vind documenten over data en privacy',
     font=('Arial 16 bold'),
-    bg='#FFFFFF', # root is already white?
+    bg='#FFFFFF', # Using Hex for precise hue's instead of 'white' ! 
     fg='#264A5F',
     anchor='w',
     padx=24,
@@ -362,7 +360,7 @@ name_label.pack(fill='x')
 #---
 name_label = tk.Label( # content for burger
     burger_page,
-    text='Search for keywords; eq data, iso or NISP2',
+    text='Search for keywords',
     font=('Arial 11 bold'),
     bg='#FFFFFF', # root is already white?
     fg='#264A5F',
