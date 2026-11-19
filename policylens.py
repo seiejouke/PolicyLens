@@ -9,6 +9,10 @@ from datetime import datetime # checking and verifying dates for mock searches
 CSV_FILE = Path(__file__).with_name( # Path called from pathlib/Path
     'policylens_mock_tweede_kamer.csv'
 )
+DATABASE_FILE = Path(__file__).with_name("policy_data.json")
+
+research_documents = []
+
 
 def load_mock_document():
     with CSV_FILE.open(
@@ -79,8 +83,7 @@ def search_researcher():
     to_text = to_date_inp.get().strip()
     document_type = document_type_inp.get().strip().casefold()
 
-    for item in research_results.get_children():
-        research_results.delete(item)
+    display_research_results([])
 
     if len(term) < 2:
         research_status.set('Vul minimaal twee tekens in.') # Misschien wat te kort? Hoe kom ik hierachter?
@@ -139,23 +142,61 @@ def search_researcher():
 
         visible.append(document) # add documents after logic function sorting
 
-    for document in visible:
-        research_results.insert( # How does this work? 
-            '',
-            tk.END, 
-            values=(
-                document['Titel'],
-                document['Datum'],
-                document['Soort']
-            )
-        )
+    display_research_results(visible)
 
     if visible:
         research_status.set(
             f'{len(visible)} resultaten uit {len(retrieved)} opgehaalde records (fictief).' # hoe werkt dit?            
         )
     else:
-        research_status.set('Geen documenten gevondeon met deze zoekterm en filters.')    
+        research_status.set(
+            'Geen documenten gevondeon met deze zoekterm en filters.'
+        )    
+
+def display_research_results(documents):
+    research_documents.clear()
+    research_documents.extend(documents)
+
+    for item in research_results.get_children():
+        research_results.delete(item)
+
+    for document in research_documents:
+        research_results.insert(
+            "",
+            tk.END,
+            values=(
+                document["Titel"],
+                document["Datum"],
+                document["Soort"]
+            )
+        )
+
+def save_research_results():
+    if not research_documents:
+        research_status.set("Geen resultaten om op te slaan.")
+        return
+
+    with TinyDB(DATABASE_FILE, encoding='utf-8') as database:
+                table = database.table('documents')
+                table.truncate()
+                table.insert_multiple(research_documents)
+
+    research_status.set(
+        f"{len(research_documents)} documenten opgeslagen."
+    )
+
+def load_research_results():
+    with TinyDB(DATABASE_FILE, encoding='utf-8') as database:
+        documents = database.table('documents').all()
+
+    display_research_results(documents)
+
+    research_status.set(
+        f'Lokale opslag: {len(documents)} documenten geladen. '
+        'Zoekterm en filters niet toegepast.'
+    )
+
+
 
 # Create the root window
 root = tk.Tk()
@@ -395,6 +436,18 @@ research_status_label.pack(
     padx=22,
     pady=(4, 8)
 )
+
+ttk.Button(
+    onderzoeker_page,
+    text='Bewaar resultaten lokaal',
+    command=save_research_results
+).pack(anchor='w', padx=22, pady=4)
+
+ttk.Button(
+    onderzoeker_page,
+    text='Laad opgeslagen data',
+    command=load_research_results
+).pack(anchor='w', padx=22, pady=4)
 
 research_results_frame = tk.Frame(
     onderzoeker_page,
