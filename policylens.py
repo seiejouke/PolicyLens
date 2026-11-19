@@ -210,14 +210,14 @@ root.geometry('900x700')
 root.minsize(800, 600)
 root.resizable(True, True) # Need to fit the onderzoeker results!
 # What does the header do?
-header = tk.Frame(root, bg="#264A5F")
+header = tk.Frame(root, bg="#193548")
 header.pack(fill="x")
 # Use a label to show the title
 title = tk.Label(
     header, # places the title into the header?
     text="POLICYLENS NL",
     font=("Arial", 16, "bold"),
-    bg="#264A5F",
+    bg="#193548",
     fg="white",
     anchor="w",
     padx=16,
@@ -235,24 +235,24 @@ def show_page(page): # Place at top of of script or separate function script?
 
     # Beide knoppen eerst hun gewone kleur geven
     burger_btn.configure(
-        bg='white', fg='#264A5F',
-        activebackground='white', activeforeground='#264A5F'
+        bg='#35566A', fg='white',
+        activebackground='#35566A', activeforeground='white'
     )
     onderzoek_btn.configure(
-        bg='white', fg='#264A5F',
-        activebackground='white', activeforeground='#264A5F'
+        bg='#35566A', fg='white',
+        activebackground='#35566A', activeforeground='white'
     )
 
     # Daarna de knop van de gekozen pagina kleuren
     if page is burger_page:
         burger_btn.configure(
-            bg='#264A5F', fg='white',
-            activebackground='#264A5F', activeforeground='white'
+            bg='#117D8D', fg='white',
+            activebackground='#117D8D', activeforeground='white'
         )
     else:
         onderzoek_btn.configure(
-            bg='#264A5F', fg='white',
-            activebackground='#264A5F', activeforeground='white'
+            bg='#117D8D', fg='white',
+            activebackground='#117D8D', activeforeground='white'
         )
 #--- search bar function
 def make_search_bar(parent, text_var, on_search=None):
@@ -263,8 +263,10 @@ def make_search_bar(parent, text_var, on_search=None):
         search_row,
         text='Zoeken',
         command=on_search,
-        bg='#264A5F',
+        bg='#117D8D',
         fg="white",
+        activebackground='#117D8D',
+        activeforeground='white',
         relief="flat",
         padx=20
     )
