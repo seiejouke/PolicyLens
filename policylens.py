@@ -5,6 +5,7 @@ from tkinter import ttk
 import csv
 from pathlib import Path # for csv
 from datetime import datetime # checking and verifying dates for mock searches
+from tinydb import TinyDB
 
 CSV_FILE = Path(__file__).with_name( # Path called from pathlib/Path
     'policylens_mock_tweede_kamer.csv'
@@ -177,9 +178,9 @@ def save_research_results():
         return
 
     with TinyDB(DATABASE_FILE, encoding='utf-8') as database:
-                table = database.table('documents')
-                table.truncate()
-                table.insert_multiple(research_documents)
+            table = database.table('documents')
+            table.truncate()
+            table.insert_multiple(research_documents)
 
     research_status.set(
         f"{len(research_documents)} documenten opgeslagen."
