@@ -57,8 +57,8 @@ def search_burger():
         reverse=True
     )
 
-    retrieved = matches[:25]
-    visible = retrieved[:10]
+    retrieved = matches[:25] # TP-02 - 
+    visible = retrieved[:10] # TP-02 - Burger toont maximaal tien resultaten
 
     for document in visible:
         burger_results.insert(
@@ -86,7 +86,7 @@ def search_researcher():
 
     display_research_results([])
 
-    if len(term) < 2:
+    if len(term) < 2: # minimaal twee tekens vereist; 1 letter behoort geen resultaten te vinden
         research_status.set('Vul minimaal twee tekens in.') # Misschien wat te kort? Hoe kom ik hierachter?
         return
 
