@@ -10,18 +10,19 @@ from tinydb import TinyDB
 CSV_FILE = Path(__file__).with_name( # Path called from pathlib/Path
     'policylens_mock_tweede_kamer.csv'
 )
+#---
 DATABASE_FILE = Path(__file__).with_name("policy_data.json")
-
+#---
 research_documents = []
-
-
+#Later mogelijk functies in een apart script callen?
 def load_mock_document():
     with CSV_FILE.open(
-        encoding='utf-8-sig', # what is this?
+        encoding='utf-8-sig', # encoding standard
         newline=''
     ) as csv_file:
         reader= csv.DictReader(csv_file)
         return list(reader)
+    
 def search_burger():
     term = search_text.get().strip().casefold() 
     #.strip() verwijdert omliggende spaties. .casefold() zorgt dat bijvoorbeeld DATA ook overeenkomt met data
@@ -35,8 +36,8 @@ def search_burger():
 
     try:
         documents = load_mock_document()
-    except (OSError, UnicodeError, csv.Error) as error:
-        burger_status.set(f'CSV kon niet worden gelezen: {error}')
+    except (OSError, UnicodeError, csv.Error) as error: # error testing
+        burger_status.set(f'CSV kon niet worden gelezen: {error}') # error testing foutmelding
         return
 
     matches = []
@@ -172,7 +173,7 @@ def display_research_results(documents):
             )
         )
 
-def save_research_results():
+def save_research_results(): # data opslag for tinyDB
     if not research_documents:
         research_status.set("Geen resultaten om op te slaan.")
         return
@@ -186,7 +187,7 @@ def save_research_results():
         f"{len(research_documents)} documenten opgeslagen."
     )
 
-def load_research_results():
+def load_research_results(): # data ophalen uit tinyDB
     with TinyDB(DATABASE_FILE, encoding='utf-8') as database:
         documents = database.table('documents').all()
 
@@ -196,9 +197,9 @@ def load_research_results():
         f'Lokale opslag: {len(documents)} documenten geladen. '
         'Zoekterm en filters niet toegepast.'
     )
-
-
-
+########################
+########################
+########################
 # Create the root window
 root = tk.Tk()
 root.configure(bg='white')
@@ -294,7 +295,7 @@ def make_search_bar(parent, text_var, on_search=None):
     )
 
     return name_inp   
-#---
+
 #---  Onderzoeker search bar function
 def make_search_bar_onderzoeker(parent, label_text):
     filter_label = tk.Label(
@@ -312,7 +313,7 @@ def make_search_bar_onderzoeker(parent, label_text):
         insertbackground='#264A5F',
         insertwidth=3
     )
-    filter_inp.configure(
+    filter_inp.configure( #UI design
         relief='flat',
         borderwidth=0,
         highlightthickness=1,
@@ -330,7 +331,7 @@ def make_search_bar_onderzoeker(parent, label_text):
 #---
 onderzoek_btn = tk.Button( # onderzoeker button
     header,
-    text='Onderzoek',
+    text='Onderzoeker',
     command=lambda: show_page(onderzoeker_page), # Wait for action until activated
     relief='flat',
     padx=16,
@@ -420,9 +421,9 @@ burger_results.pack(
 #--- ONDERZOEKER CONTENT STARTS HERE!
 research_heading = tk.Label(
     onderzoeker_page, # function for onderzoeker container
-    text='Onderzoek parlementarire documenten',
+    text='Onderzoek parlementaire documenten',
     font=('Arial 16 bold'),
-    bg='#FFFFFF', # root is already white?
+    bg='#FFFFFF', 
     fg='#264A5F',
     anchor='w',
     padx=24,
@@ -452,7 +453,7 @@ document_type_inp = make_search_bar_onderzoeker(
 )
 
 research_status = tk.StringVar(
-    value='Zoek in fictieve CSV-data. Lege filters worden niet toegepast.'
+    value='Zoek in fictieve CSV-data. Lege filters worden niet toegepast.' # error testing
 )
 
 research_status_label = tk.Label(
