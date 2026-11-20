@@ -262,7 +262,7 @@ def make_search_bar(parent, text_var, on_search=None):
     search_btn = tk.Button(
         search_row,
         text='Zoeken',
-        command=on_search,
+        command=on_search, # to do !
         bg='#117D8D',
         fg="white",
         activebackground='#117D8D',
