@@ -363,9 +363,10 @@ vast. Als een bron ontbreekt, label de tekst als **reconstructie** of
   Tkinter moesten worden gebouwd. De twee deels herhaalde scopeberichten zijn
   afzonderlijk bewaard omdat het tweede bericht aanvullende eisen bevat.
 - **Controle/uitkomst:** De sessie meldde twee geslaagde Tkinter-tests,
-  waaronder schermwisseling. De huidige beperking is beschreven in
-  [IMPLEMENTATIE.md](IMPLEMENTATIE.md): de stories worden visueel getoond,
-  maar zoek-, filter-, analyse- en exportacties zijn niet functioneel gebouwd.
+  waaronder schermwisseling. De beperking van die versie stond in
+  `IMPLEMENTATIE.md` (inmiddels verwerkt in de [README](../README.md)):
+  de stories werden visueel getoond, maar zoek-, filter-, analyse- en
+  exportacties waren niet functioneel gebouwd.
   De wens in de prompt om aan alle stories te voldoen is dus geen bewijs van
   daadwerkelijke functionele conformiteit.
 

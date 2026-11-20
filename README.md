@@ -1,40 +1,32 @@
-# PolicyLens NL · Tkinter-wireframe-demo
+# PolicyLens NL
 
-Een offline GUI met twee schermen uit het LU3-ontwerp: **Burger** en
-**Onderzoeker**. De schermen zijn wireframes met fictieve voorbeeldresultaten.
-De zoekterm staat vast op `data`. Er wordt geen API aangeroepen.
+Een lokale desktopapp in Python en Tkinter om fictieve parlementaire documenten
+te zoeken. De gegevens komen uit `policylens_mock_tweede_kamer.csv`.
 
 ## Starten
 
-Vereist Python 3.11+ met Tkinter. Er zijn geen externe pakketten nodig.
+Vereist Python 3.11+ met Tkinter. Voer vanuit de projectmap uit:
 
 ```powershell
-py main.py
+python -m pip install -r requirements.txt
+python policylens.py
 ```
 
-Gebruik de knoppen bovenaan om tussen Burger en Onderzoeker te wisselen. De
-knoppen en filters op de schermen zijn alleen ter illustratie en voeren geen
-zoekopdracht, bronopening of CSV-export uit. In de Onderzoeker-wireframe kun je
-wel op **Bewaar voorbeelddata lokaal** klikken om de fictieve records in SQLite
-op te slaan. De app laadt opgeslagen voorbeelden bij de volgende start.
+## Werking en implementatie
 
-De database staat in `policylens.db` naast `main.py`. Het bestand wordt pas
-aangemaakt wanneer je de opslagknop gebruikt en is uitgesloten van Git.
-Het is een SQLite-databasebestand en geen leesbaar tekstbestand. Je kunt het
-bekijken met bijvoorbeeld DB Browser for SQLite: open daarin `policylens.db`.
-De app zelf heeft hiervoor geen extra pakket nodig.
+- **Burger:** zoek in titel en onderwerp met minimaal twee tekens.
+  Je ziet maximaal tien resultaten met titel, datum en documentsoort.
+- **Onderzoek:** zoek met datumfilters (`dd-mm-jjjj`) en documentsoort.
+  De app selecteert eerst de nieuwste 25 treffers en past daarop de filters toe.
+- **Lokale opslag:** bewaar onderzoeksresultaten via TinyDB in `policy_data.json`.
+  Bewaren vervangt de vorige set. Met **Laad opgeslagen data** haal je die terug,
+  ook na herstart; zoekterm en filters worden bij laden niet toegepast.
 
-## Wat de wireframes tonen
+De app werkt offline en realiseert een deel van het LU3-ontwerp. API-koppeling,
+bronopening, gerelateerde begrippen, termtellingen, CSV-export en
+zoekgeschiedenis ontbreken nog.
 
-- **Burger:** vast zoekveld, maximaal tien resultaten, voorbeeldmetadata,
-  bronactie en gerelateerde begrippen.
-- **Onderzoeker:** vast zoekveld, voorbeeldfilters, metadata, analyse,
-  exportbediening en recente zoektermen.
-- **Gedeeld:** twee herkenbare routes en uitleg dat de gegevens fictief zijn.
+## Documentatie
 
-De user-stories zijn hier visueel uitgewerkt, niet functioneel gebouwd. Zie
-[de scope-notitie](docs/IMPLEMENTATIE.md). De Python GUI-code staat in
-[main.py](main.py).
-
-Voor de gebruikte GenAI-prompts en eigen keuzes, zie het
-[GenAI-logboek](docs/GENAI-LOG.md).
+- [LU3-ontwerp](docs/PolicyLens_NL_LU3_Ontwerp_v05_Gebruikersinterfaces.docx)
+- [GenAI-logboek](docs/GENAI-LOG.md)
