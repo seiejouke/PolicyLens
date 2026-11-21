@@ -197,335 +197,335 @@ def load_research_results(): # data ophalen uit tinyDB
         f'Lokale opslag: {len(documents)} documenten geladen. '
         'Zoekterm en filters niet toegepast.'
     )
-########################
-########################
-########################
-# Create the root window
-root = tk.Tk()
-root.configure(bg='white')
-search_text = tk.StringVar() # store search text?
-# Set the title
-root.title("Policy lens")
-# Set the root window size
-root.geometry('900x700')
-root.minsize(800, 600)
-root.resizable(True, True) # Need to fit the onderzoeker results!
-# What does the header do?
-header = tk.Frame(root, bg="#193548")
-header.pack(fill="x")
-# Use a label to show the title
-title = tk.Label(
-    header, # places the title into the header?
-    text="POLICYLENS NL",
-    font=("Arial", 16, "bold"),
-    bg="#193548",
-    fg="white",
-    anchor="w",
-    padx=16,
-    pady=12
-)
-title.pack(side="left")
-#---
-burger_page = tk.Frame(root, bg='#FFFFFF') # stakeholder; burger
-onderzoeker_page = tk.Frame(root, bg='#FFFFFF') # stakeholder; onderzoeker
-#--- stakeholder function
-def show_page(page): # Place at top of of script or separate function script?
-    burger_page.pack_forget() # container for burger; 'forgets' depending on which is called
-    onderzoeker_page.pack_forget() # container for onderzoeker; 'forget' depending on...
-    page.pack(fill='both', expand=True) # make selected container/UI the sole viewed UI
 
-    # Beide knoppen eerst hun gewone kleur geven
-    burger_btn.configure(
-        bg='#35566A', fg='white',
-        activebackground='#35566A', activeforeground='white'
-    )
-    onderzoek_btn.configure(
-        bg='#35566A', fg='white',
-        activebackground='#35566A', activeforeground='white'
-    )
 
-    # Daarna de knop van de gekozen pagina kleuren
-    if page is burger_page:
-        burger_btn.configure(
-            bg='#117D8D', fg='white',
-            activebackground='#117D8D', activeforeground='white'
-        )
-    else:
-        onderzoek_btn.configure(
-            bg='#117D8D', fg='white',
-            activebackground='#117D8D', activeforeground='white'
-        )
-#--- search bar function
-def make_search_bar(parent, text_var, on_search=None):
-    search_row = tk.Frame(parent, bg='white')
-    search_row.pack(fill="x", padx=22, pady=8)
-#---Search button
-    search_btn = tk.Button(
-        search_row,
-        text='Zoeken',
-        command=on_search, # to do !
-        bg='#117D8D',
+if __name__ == "__main__": # indent code after
+    # Create the root window
+    root = tk.Tk()
+    root.configure(bg='white')
+    search_text = tk.StringVar() # store search text?
+    # Set the title
+    root.title("Policy lens")
+    # Set the root window size
+    root.geometry('900x700')
+    root.minsize(800, 600)
+    root.resizable(True, True) # Need to fit the onderzoeker results!
+    # What does the header do?
+    header = tk.Frame(root, bg="#193548")
+    header.pack(fill="x")
+    # Use a label to show the title
+    title = tk.Label(
+        header, # places the title into the header?
+        text="POLICYLENS NL",
+        font=("Arial", 16, "bold"),
+        bg="#193548",
         fg="white",
-        activebackground='#117D8D',
-        activeforeground='white',
-        relief="flat",
-        padx=20
+        anchor="w",
+        padx=16,
+        pady=12
     )
-    search_btn.pack(side='right', fill='y', padx=(10, 0))
-#---Entry field
-    name_inp = tk.Entry(
-        search_row,
-        textvariable=text_var, # what does this do? | connect entry to the variable passed into the function?
-        font=('Arial', 16, 'bold'),
-        insertbackground="#264A5F",
-        insertwidth=4,
-    )
-    name_inp.configure( # Adjust the default dropshadow around the input box (looks neater)
+    title.pack(side="left")
+    #---
+    burger_page = tk.Frame(root, bg='#FFFFFF') # stakeholder; burger
+    onderzoeker_page = tk.Frame(root, bg='#FFFFFF') # stakeholder; onderzoeker
+    #--- stakeholder function
+    def show_page(page): # Place at top of of script or separate function script?
+        burger_page.pack_forget() # container for burger; 'forgets' depending on which is called
+        onderzoeker_page.pack_forget() # container for onderzoeker; 'forget' depending on...
+        page.pack(fill='both', expand=True) # make selected container/UI the sole viewed UI
+
+        # Beide knoppen eerst hun gewone kleur geven
+        burger_btn.configure(
+            bg='#35566A', fg='white',
+            activebackground='#35566A', activeforeground='white'
+        )
+        onderzoek_btn.configure(
+            bg='#35566A', fg='white',
+            activebackground='#35566A', activeforeground='white'
+        )
+
+        # Daarna de knop van de gekozen pagina kleuren
+        if page is burger_page:
+            burger_btn.configure(
+                bg='#117D8D', fg='white',
+                activebackground='#117D8D', activeforeground='white'
+            )
+        else:
+            onderzoek_btn.configure(
+                bg='#117D8D', fg='white',
+                activebackground='#117D8D', activeforeground='white'
+            )
+    #--- search bar function
+    def make_search_bar(parent, text_var, on_search=None):
+        search_row = tk.Frame(parent, bg='white')
+        search_row.pack(fill="x", padx=22, pady=8)
+    #---Search button
+        search_btn = tk.Button(
+            search_row,
+            text='Zoeken',
+            command=on_search, # to do !
+            bg='#117D8D',
+            fg="white",
+            activebackground='#117D8D',
+            activeforeground='white',
+            relief="flat",
+            padx=20
+        )
+        search_btn.pack(side='right', fill='y', padx=(10, 0))
+    #---Entry field
+        name_inp = tk.Entry(
+            search_row,
+            textvariable=text_var, # what does this do? | connect entry to the variable passed into the function?
+            font=('Arial', 16, 'bold'),
+            insertbackground="#264A5F",
+            insertwidth=4,
+        )
+        name_inp.configure( # Adjust the default dropshadow around the input box (looks neater)
+            relief='flat',
+            borderwidth=0,
+            highlightthickness=1,
+            highlightbackground='#CBD5DC',
+            highlightcolor='#264A5F'
+        )
+        name_inp.pack(
+            side="left",
+            fill="x",
+            expand=True,
+            ipady=10
+        )
+
+        return name_inp   
+
+    #---  Onderzoeker search bar function
+    def make_search_bar_onderzoeker(parent, label_text):
+        filter_label = tk.Label(
+            parent,
+            text=label_text,
+            bg='#FFFFFF'
+        )
+        filter_label.pack(
+            anchor='w',
+            padx=22
+        )
+        filter_inp = tk.Entry(
+            parent,
+            font=('Arial', 12),
+            insertbackground='#264A5F',
+            insertwidth=3
+        )
+        filter_inp.configure( #UI design
+            relief='flat',
+            borderwidth=0,
+            highlightthickness=1,
+            highlightbackground='#CBD5DC',
+            highlightcolor='#264A5F'
+        )
+        filter_inp.pack(
+            fill='x',
+            padx=22,
+            pady=(2, 6), # side adjusted to fit search results !
+            ipady=3
+        )
+
+        return filter_inp
+    #---
+    onderzoek_btn = tk.Button( # onderzoeker button
+        header,
+        text='Onderzoeker',
+        command=lambda: show_page(onderzoeker_page), # Wait for action until activated
         relief='flat',
-        borderwidth=0,
-        highlightthickness=1,
-        highlightbackground='#CBD5DC',
-        highlightcolor='#264A5F'
+        padx=16,
+        pady=8
     )
-    name_inp.pack(
-        side="left",
-        fill="x",
-        expand=True,
-        ipady=10
+    onderzoek_btn.pack(side='right', padx=8)
+    #--- BURGER CONTENT STARTS HERE!
+    burger_btn = tk.Button( # burger button
+        header,
+        text='Burger',
+        command=lambda: show_page(burger_page), # Wait for action until activated
+        relief='flat',
+        padx=16,
+        pady=8
     )
-
-    return name_inp   
-
-#---  Onderzoeker search bar function
-def make_search_bar_onderzoeker(parent, label_text):
-    filter_label = tk.Label(
-        parent,
-        text=label_text,
-        bg='#FFFFFF'
-    )
-    filter_label.pack(
+    burger_btn.pack(side='right', padx=8)
+    #--- 
+    name_label = tk.Label( # content for burger
+        burger_page,
+        text='Vind documenten over data en privacy',
+        font=('Arial 16 bold'),
+        bg='#FFFFFF', # Using Hex for precise hue's instead of 'white' ! 
+        fg='#264A5F',
         anchor='w',
-        padx=22
+        padx=24,
+        pady=24                  
     )
-    filter_inp = tk.Entry(
-        parent,
-        font=('Arial', 12),
-        insertbackground='#264A5F',
-        insertwidth=3
+    name_label.pack(fill='x')
+    #---
+    name_label = tk.Label( # content for burger
+        burger_page,
+        text='Search for keywords',
+        font=('Arial 11 bold'),
+        bg='#FFFFFF', # root is already white?
+        fg='#264A5F',
+        anchor='w',
+        padx=24,
+        pady=16
     )
-    filter_inp.configure( #UI design
-        relief='flat',
-        borderwidth=0,
-        highlightthickness=1,
-        highlightbackground='#CBD5DC',
-        highlightcolor='#264A5F'
+    name_label.pack(fill='x') # Placing the label as a widget
+    #---
+    burger_input = make_search_bar(
+        burger_page,
+        search_text,
+        on_search=search_burger
     )
-    filter_inp.pack(
+
+    burger_status = tk.StringVar(
+        value='Zoek in de fictieve CSV-data.'
+    )
+
+    burger_status_label = tk.Label(
+        burger_page,
+        textvariable=burger_status,
+        bg='#FFFFFF',
+        fg='#264A5F',
+        anchor='w'
+    )
+    burger_status_label.pack(
         fill='x',
         padx=22,
-        pady=(2, 6), # side adjusted to fit search results !
-        ipady=3
+        pady=(4, 8)
     )
 
-    return filter_inp
-#---
-onderzoek_btn = tk.Button( # onderzoeker button
-    header,
-    text='Onderzoeker',
-    command=lambda: show_page(onderzoeker_page), # Wait for action until activated
-    relief='flat',
-    padx=16,
-    pady=8
-)
-onderzoek_btn.pack(side='right', padx=8)
-#--- BURGER CONTENT STARTS HERE!
-burger_btn = tk.Button( # burger button
-    header,
-    text='Burger',
-    command=lambda: show_page(burger_page), # Wait for action until activated
-    relief='flat',
-    padx=16,
-    pady=8
-)
-burger_btn.pack(side='right', padx=8)
-#--- 
-name_label = tk.Label( # content for burger
-    burger_page,
-    text='Vind documenten over data en privacy',
-    font=('Arial 16 bold'),
-    bg='#FFFFFF', # Using Hex for precise hue's instead of 'white' ! 
-    fg='#264A5F',
-    anchor='w',
-    padx=24,
-    pady=24                  
-)
-name_label.pack(fill='x')
-#---
-name_label = tk.Label( # content for burger
-    burger_page,
-    text='Search for keywords',
-    font=('Arial 11 bold'),
-    bg='#FFFFFF', # root is already white?
-    fg='#264A5F',
-    anchor='w',
-    padx=24,
-    pady=16
-)
-name_label.pack(fill='x') # Placing the label as a widget
-#---
-burger_input = make_search_bar(
-    burger_page,
-    search_text,
-    on_search=search_burger
-)
+    burger_results = ttk.Treeview(
+        burger_page,
+        columns=('Titel', 'Datum', 'Soort'),
+        show='headings',
+        height=10
+    )
 
-burger_status = tk.StringVar(
-    value='Zoek in de fictieve CSV-data.'
-)
+    burger_results.heading('Titel', text='Titel')
+    burger_results.heading('Datum', text='Datum')
+    burger_results.heading('Soort', text='Documentsoort')
 
-burger_status_label = tk.Label(
-    burger_page,
-    textvariable=burger_status,
-    bg='#FFFFFF',
-    fg='#264A5F',
-    anchor='w'
-)
-burger_status_label.pack(
-    fill='x',
-    padx=22,
-    pady=(4, 8)
-)
+    burger_results.column('Titel', width=450)
+    burger_results.column('Datum', width=110, stretch=False)
+    burger_results.column('Soort', width=150, stretch=False)
 
-burger_results = ttk.Treeview(
-    burger_page,
-    columns=('Titel', 'Datum', 'Soort'),
-    show='headings',
-    height=10
-)
+    burger_results.pack(
+        fill='both',
+        expand=True,
+        padx=22,
+        pady=(0, 12)
+    )
 
-burger_results.heading('Titel', text='Titel')
-burger_results.heading('Datum', text='Datum')
-burger_results.heading('Soort', text='Documentsoort')
+    #--- ONDERZOEKER CONTENT STARTS HERE!
+    research_heading = tk.Label(
+        onderzoeker_page, # function for onderzoeker container
+        text='Onderzoek parlementaire documenten',
+        font=('Arial 16 bold'),
+        bg='#FFFFFF', 
+        fg='#264A5F',
+        anchor='w',
+        padx=24,
+        pady=10
+    )
+    research_heading.pack(fill='x')
+    #--- 
+    research_input = make_search_bar(
+        onderzoeker_page,
+        search_text,
+        on_search=search_researcher # added search functionality
+    )
+    #--- Onderzoeker filters from function
+    from_date_inp = make_search_bar_onderzoeker(
+        onderzoeker_page,
+        'Vanaf datum (dd-mm-jjjj)'
+    )
 
-burger_results.column('Titel', width=450)
-burger_results.column('Datum', width=110, stretch=False)
-burger_results.column('Soort', width=150, stretch=False)
+    to_date_inp = make_search_bar_onderzoeker(
+        onderzoeker_page,
+        'Tot datum (dd-mm-jjjj)'
+    )
 
-burger_results.pack(
-    fill='both',
-    expand=True,
-    padx=22,
-    pady=(0, 12)
-)
+    document_type_inp = make_search_bar_onderzoeker(
+        onderzoeker_page,
+        'Documenttype'
+    )
 
-#--- ONDERZOEKER CONTENT STARTS HERE!
-research_heading = tk.Label(
-    onderzoeker_page, # function for onderzoeker container
-    text='Onderzoek parlementaire documenten',
-    font=('Arial 16 bold'),
-    bg='#FFFFFF', 
-    fg='#264A5F',
-    anchor='w',
-    padx=24,
-    pady=10
-)
-research_heading.pack(fill='x')
-#--- 
-research_input = make_search_bar(
-    onderzoeker_page,
-    search_text,
-    on_search=search_researcher # added search functionality
-)
-#--- Onderzoeker filters from function
-from_date_inp = make_search_bar_onderzoeker(
-    onderzoeker_page,
-    'Vanaf datum (dd-mm-jjjj)'
-)
+    research_status = tk.StringVar(
+        value='Zoek in fictieve CSV-data. Lege filters worden niet toegepast.' # error testing
+    )
 
-to_date_inp = make_search_bar_onderzoeker(
-    onderzoeker_page,
-    'Tot datum (dd-mm-jjjj)'
-)
+    research_status_label = tk.Label(
+        onderzoeker_page,
+        textvariable=research_status,
+        bg='#FFFFFF',
+        fg='#264A5F',
+        anchor='w'
+    )
+    research_status_label.pack(
+        fill='x',
+        padx=22,
+        pady=(4, 8)
+    )
 
-document_type_inp = make_search_bar_onderzoeker(
-    onderzoeker_page,
-    'Documenttype'
-)
+    ttk.Button(
+        onderzoeker_page,
+        text='Bewaar resultaten lokaal',
+        command=save_research_results
+    ).pack(anchor='w', padx=22, pady=4)
 
-research_status = tk.StringVar(
-    value='Zoek in fictieve CSV-data. Lege filters worden niet toegepast.' # error testing
-)
+    ttk.Button(
+        onderzoeker_page,
+        text='Laad opgeslagen data',
+        command=load_research_results
+    ).pack(anchor='w', padx=22, pady=4)
 
-research_status_label = tk.Label(
-    onderzoeker_page,
-    textvariable=research_status,
-    bg='#FFFFFF',
-    fg='#264A5F',
-    anchor='w'
-)
-research_status_label.pack(
-    fill='x',
-    padx=22,
-    pady=(4, 8)
-)
+    research_results_frame = tk.Frame(
+        onderzoeker_page,
+        bg='#FFFFFF'
+    )
+    research_results_frame.pack(
+        fill='both',
+        expand=True,
+        padx=22,
+        pady=(0, 12)
+    )
 
-ttk.Button(
-    onderzoeker_page,
-    text='Bewaar resultaten lokaal',
-    command=save_research_results
-).pack(anchor='w', padx=22, pady=4)
+    research_results = ttk.Treeview( # How does this work exactly? review!
+        research_results_frame,
+        columns=('Titel', 'Datum', 'Soort'),
+        show='headings',
+        height=6
+    )
 
-ttk.Button(
-    onderzoeker_page,
-    text='Laad opgeslagen data',
-    command=load_research_results
-).pack(anchor='w', padx=22, pady=4)
+    research_results.heading('Titel', text='Titel')
+    research_results.heading('Datum', text='Datum')
+    research_results.heading('Soort', text='Documentsoort')
 
-research_results_frame = tk.Frame(
-    onderzoeker_page,
-    bg='#FFFFFF'
-)
-research_results_frame.pack(
-    fill='both',
-    expand=True,
-    padx=22,
-    pady=(0, 12)
-)
+    research_results.column('Titel', width=450)
+    research_results.column('Datum', width=110, stretch=False)
+    research_results.column('Soort', width=150, stretch=False)
 
-research_results = ttk.Treeview( # How does this work exactly? review!
-    research_results_frame,
-    columns=('Titel', 'Datum', 'Soort'),
-    show='headings',
-    height=6
-)
+    research_scrollbar = ttk.Scrollbar(
+        research_results_frame,
+        orient='vertical',
+        command=research_results.yview
+    )
+    research_scrollbar.pack(
+        side='right',
+        fill='y'
+    )
 
-research_results.heading('Titel', text='Titel')
-research_results.heading('Datum', text='Datum')
-research_results.heading('Soort', text='Documentsoort')
+    research_results.configure(
+        yscrollcommand=research_scrollbar.set
+    )
+    research_results.pack(
+        side='left',
+        fill='both',
+        expand=True
+    )
 
-research_results.column('Titel', width=450)
-research_results.column('Datum', width=110, stretch=False)
-research_results.column('Soort', width=150, stretch=False)
-
-research_scrollbar = ttk.Scrollbar(
-    research_results_frame,
-    orient='vertical',
-    command=research_results.yview
-)
-research_scrollbar.pack(
-    side='right',
-    fill='y'
-)
-
-research_results.configure(
-    yscrollcommand=research_scrollbar.set
-)
-research_results.pack(
-    side='left',
-    fill='both',
-    expand=True
-)
-
-show_page(burger_page)
-#---
-root.mainloop()
+    show_page(burger_page)
+    #---
+    root.mainloop()
