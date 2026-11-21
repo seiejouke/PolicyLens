@@ -1,0 +1,143 @@
+Terminalberichten uit het Codex-gesprek van 20 november 2026
+
+Bron: drie door de gebruiker gedeelde terminalberichten, gekoppeld aan het GenAI-log.
+Chatopmaak, HTML-escapes en regelafbrekingen zijn genormaliseerd; inhoudelijke foutregels,
+bestandsnamen, opdrachten en testuitkomsten zijn behouden. Dit is geen sessie-export
+met controleerbare tijdstempels en geen nieuwe uitvoering van deze opdrachten.
+
+===== S7-11 =====
+
+What does this mean; pytest tests_policylens.py
+====================================== test session starts =======================================
+platform win32 -- Python 3.14.5, pytest-9.2.0, pluggy-1.7.0
+rootdir: C:\Users\Jouke\Documents\PolicyLens\tests
+collected 0 items / 1 error
+
+============================================= ERRORS =============================================
+______________________________ ERROR collecting tests_policylens.py ______________________________
+ImportError while importing test module 'C:\Users\Jouke\Documents\PolicyLens\tests\tests_policylens.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\AppData\Local\Programs\Python\Python314\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests_policylens.py:4: in <module>
+    import policylens
+E   ModuleNotFoundError: No module named 'policylens'
+==================================== short test summary info =====================================
+ERROR tests_policylens.py
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+======================================== 1 error in 0.47s ========================================
+(.venv)
+Jouke@SJS-88-DH UCRT64 ~/Documents/PolicyLens/tests (master)
+
+===== S7-12 =====
+
+Jouke@SJS-88-DH UCRT64 ~/Documents/PolicyLens (master)
+$ python -m pytest tests/test_policylens.py
+=============================================== test session starts ===============================================
+platform win32 -- Python 3.14.5, pytest-9.2.0, pluggy-1.7.0
+rootdir: C:\Users\Jouke\Documents\PolicyLens
+collected 7 items
+
+tests\test_policylens.py ...FF..                                                                             [100%]
+
+==================================================== FAILURES =====================================================
+__________________________________ test_tp02_burger_shows_ten_newest_results __________________________________
+
+app = <module 'policylens' from 'C:\\Users\\Jouke\\Documents\\PolicyLens\\policylens.py'>
+
+    def test_tp02_burger_shows_ten_newest_results(app):
+        # Arrange: 25 matching documents, initially oldest first
+        app.search_text.get.return_value = 'privacy'
+        app.load_mock_document.return_value = [
+>           document(str(day), f"2026-11-{day:02d}")
+            ^^^^^^^^
+            for day in range(1, 26)
+        ]
+E       NameError: name 'document' is not defined
+
+tests\test_policylens.py:60: NameError
+_____________________________ test_tp06_research_filters_dates_and_document_type _____________________________
+
+app = <module 'policylens' from 'C:\\Users\\Jouke\\Documents\\PolicyLens\\policylens.py'>
+
+    def test_tp06_research_filters_dates_and_document_type(app):
+        # Arrange: the five records from test scenario
+        app.load_mock_document.return_value = [
+>           document("A", "2026-11-09"),
+            ^^^^^^^^
+            document("B", "2026-11-10"),
+            document("C", "2026-11-20"),
+            document("D", "2026-11-15", "Brief regering"),
+            document("E", "2026-11-21"),
+        ]
+E       NameError: name 'document' is not defined
+
+tests\test_policylens.py:82: NameError
+============================================= short test summary info =============================================
+FAILED tests/test_policylens.py::test_tp02_burger_shows_ten_newest_results - NameError: name 'document' is not defined
+FAILED tests/test_policylens.py::test_tp06_research_filters_dates_and_document_type - NameError: name 'document' is not defined
+=========================================== 2 failed, 5 passed in 0.54s ===========================================
+(.venv)
+
+===== S7-13 =====
+
+Jouke@SJS-88-DH UCRT64 ~/Documents/PolicyLens (master)
+$ python -m pytest tests/test_policylens.py
+=============================================== test session starts ===============================================
+platform win32 -- Python 3.14.5, pytest-9.2.0, pluggy-1.7.0
+rootdir: C:\Users\Jouke\Documents\PolicyLens
+collected 7 items
+
+tests\test_policylens.py ...FF..                                                                             [100%]
+
+==================================================== FAILURES =====================================================
+__________________________________ test_tp02_burger_shows_ten_newest_results __________________________________
+
+app = <module 'policylens' from 'C:\\Users\\Jouke\\Documents\\PolicyLens\\policylens.py'>
+
+    def test_tp02_burger_shows_ten_newest_results(app):
+        # Arrange: 25 matching documents, initially oldest first
+        app.search_text.get.return_value = 'privacy'
+        app.load_mock_document.return_value = [
+>           document(str(day), f"2026-11-{day:02d}")
+            ^^^^^^^^
+            for day in range(1, 26)
+        ]
+E       NameError: name 'document' is not defined
+
+tests\test_policylens.py:60: NameError
+_____________________________ test_tp06_research_filters_dates_and_document_type _____________________________
+
+app = <module 'policylens' from 'C:\\Users\\Jouke\\Documents\\PolicyLens\\policylens.py'>
+
+    def test_tp06_research_filters_dates_and_document_type(app):
+        # Arrange: the five records from test scenario
+        app.load_mock_document.return_value = [
+>           document("A", "2026-11-09"),
+            ^^^^^^^^
+            document("B", "2026-11-10"),
+            document("C", "2026-11-20"),
+            document("D", "2026-11-15", "Brief regering"),
+            document("E", "2026-11-21"),
+        ]
+E       NameError: name 'document' is not defined
+
+tests\test_policylens.py:82: NameError
+============================================= short test summary info =============================================
+FAILED tests/test_policylens.py::test_tp02_burger_shows_ten_newest_results - NameError: name 'document' is not defined
+FAILED tests/test_policylens.py::test_tp06_research_filters_dates_and_document_type - NameError: name 'document' is not defined
+=========================================== 2 failed, 5 passed in 0.54s ===========================================
+(.venv)
+Jouke@SJS-88-DH UCRT64 ~/Documents/PolicyLens (master)
+$ python -m pytest tests/test_policylens.py
+=============================================== test session starts ===============================================
+platform win32 -- Python 3.14.5, pytest-9.2.0, pluggy-1.7.0
+rootdir: C:\Users\Jouke\Documents\PolicyLens
+collected 7 items
+
+tests\test_policylens.py .......                                                                             [100%]
+
+================================================ 7 passed in 0.23s ================================================
+(.venv)

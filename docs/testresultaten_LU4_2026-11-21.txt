@@ -1,0 +1,21 @@
+﻿PolicyLens NL - hercontrole testuitvoering LU4
+Datum: 21 november 2026 (Europe/Amsterdam)
+Uitgevoerd door Codex voor de actualisatie van het GenAI-log en de verantwoordingen.
+Commando vanuit de projectmap: .\.venv\Scripts\python.exe -m pytest tests/test_policylens.py -v -p no:cacheprovider
+
+============================= test session starts =============================
+platform win32 -- Python 3.14.5, pytest-9.2.0, pluggy-1.7.0 -- C:\Users\Jouke\Documents\PolicyLens\.venv\Scripts\python.exe
+rootdir: C:\Users\Jouke\Documents\PolicyLens
+collecting ... collected 9 items
+
+tests/test_policylens.py::test_tp01_burger_rejects_short_input[] PASSED  [ 11%]
+tests/test_policylens.py::test_tp01_burger_rejects_short_input[  ] PASSED [ 22%]
+tests/test_policylens.py::test_tp01_burger_rejects_short_input[a] PASSED [ 33%]
+tests/test_policylens.py::test_tp02_burger_shows_ten_newest_results PASSED [ 44%]
+tests/test_policylens.py::test_tp06_research_filters_dates_and_document_type PASSED [ 55%]
+tests/test_policylens.py::test_tp06_research_rejects_invalid_dates[31-02-2026--Gebruik geldige datums als dd-mm-jjjj.] PASSED [ 66%]
+tests/test_policylens.py::test_tp06_research_rejects_invalid_dates[20-11-2026-10-11-2026-Vanaf datum mag niet na Tot datum liggen] PASSED [ 77%]
+tests/test_policylens.py::test_tp11_burger_handles_no_matching_documents PASSED [ 88%]
+tests/test_policylens.py::test_tp11_research_handles_no_matching_documents PASSED [100%]
+
+============================== 9 passed in 0.20s ==============================

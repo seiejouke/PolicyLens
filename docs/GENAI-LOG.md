@@ -17,9 +17,11 @@ hersteld. Eén bestaand citaat is gecorrigeerd naar de oorspronkelijke tekst:
 
 Na die controle zijn leervragen S6-05 en S6-06 toegevoegd. Het overzicht tot en
 met 11 november bevat **49 gebruikersprompts** en vijf antwoorden uit
-keuzedialogen. Latere aanvullingen staan afzonderlijk onderaan; de twee prompts
-over de documentatietaak van 20 november maken de overige gesprekken van die
-dag niet alsnog volledig geregistreerd.
+keuzedialogen. De actualisatie van 21 november registreert daarnaast
+**21 gebruikersberichten** uit het zichtbare vervolg: 17 bij S7 (20 november)
+en vier bij S8 (21 november). Daarmee zijn binnen deze afbakening **70
+gebruikersberichten** geregistreerd. Exacte prompttijden en gesprekken buiten
+dit overzicht zijn hiermee niet alsnog volledig gecontroleerd.
 
 De aanvullingen betreffen de projectomgeving en Git-uitleg op 30 oktober, de
 MVP-inschatting en bouw op 6 november, drie expliciete scope-/Tkinter-prompts en
@@ -595,12 +597,180 @@ vast. Als een bron ontbreekt, label de tekst als **reconstructie** of
   [contextlib.closing](https://docs.python.org/3/library/contextlib.html#contextlib.closing).
   Alleen het logboek is bijgewerkt; de applicatiecode is ongewijzigd.
 
-### 2026-11-20 — afwijkingen en testbewijs in de LU4-verantwoording verwerken
+## Gespreksaanvulling 20 en 21 november 2026
 
-- **Bron:** het huidige Codex-gesprek van 20 november 2026. De afzonderlijke
-  prompttijden en een sessie-ID zijn hier niet vastgelegd. Deze aanvulling
-  registreert de onderstaande documentatietaak; eerdere beoordelingen en de
-  volledige pytest-dialoog van deze dag vallen buiten deze registratie.
+- **Bron:** de gebruikersberichten en antwoorden die zichtbaar zijn in dit Codex-gesprek. Datumtoewijzing volgt de clientcontext Europe/Amsterdam; exacte prompttijden en een sessie-ID zijn hier niet beschikbaar.
+- **Afbakening:** S7 registreert 17 berichten van 20 november en S8 vier berichten van 21 november. Andere gesprekken, apparaten of verwijderde berichten zijn hiermee niet gecontroleerd. De oorspronkelijke ontwerpprompt blijft ontbreken.
+- **Bestaande ID’s:** S7-01 en S7-02 behouden hun eerdere betekenis. De overige S7-ID’s zijn bij deze aanvulling toegekend. De blokken hieronder volgen de gespreksvolgorde, niet de nummering.
+- **Nauwkeurigheid:** tekstvragen zijn letterlijk overgenomen, met witruimte rond het bericht weggelaten. De drie lange terminalberichten staan in [de terminalbijlage](GENAI-TERMINAL-2026-11-20.txt); alleen chatopmaak en escapes zijn daar genormaliseerd. De korte foutregels hieronder zijn herkenningsfragmenten, geen volledige prompts.
+
+| Brondeel | Periode | Geregistreerde gebruikersberichten |
+| --- | --- | ---: |
+| S1–S6 | Tot en met 11 november | 49 |
+| S7 | 20 november | 17 |
+| S8 | 21 november | 4 |
+| **Totaal binnen deze afbakening** | | **70** |
+
+### 2026-11-20 — S7-03
+
+**Prompt S7-03 — 2026-11-20**
+
+> Kijk naar de Rubric PRBA LU3/LU4 PDF's voor de indicatoren en kijk vervolgens naar mijn documentatie LU3_Ontwerp_v05 en de applicatie alsook de verantwoording voor LU3 en 4.
+>
+> Geef feedback naar hoe zuiver ik de indicatoren naleef voor de uitstekende score
+
+- **AI-bijdrage:** Rubrics, ontwerp, verantwoordingen en code vergeleken. De scheiding tussen ontwerpkwaliteit, realisatie en bewijsvoering benoemd; ontbrekende functies, feedback en tests zichtbaar gemaakt.
+- **Eigen keuze:** De gebruiker vroeg om een kritische beoordeling tegenover de uitstekende score.
+- **Controle/uitkomst:** De beoordeling was een controle van bestaande producten. Zij vormde geen uitgevoerde gebruikersreview en geen bewijs van volledige realisatie.
+
+### 2026-11-20 — S7-04
+
+**Prompt S7-04 — 2026-11-20**
+
+> Update de readme.md en verwerk de implementatie erin. Hou het kort en simpel.
+
+- **AI-bijdrage:** README bijgewerkt naar policylens.py, werkende CSV-zoekfuncties, filters en TinyDB. De implementatie-informatie samengevoegd met de README.
+- **Eigen keuze:** De gebruiker koos voor korte, eenvoudige en centrale documentatie.
+- **Controle/uitkomst:** De documentatie is aan de toenmalige code getoetst. De wijziging voegde geen applicatiefuncties toe.
+
+### 2026-11-20 — S7-05
+
+**Prompt S7-05 — 2026-11-20**
+
+> We hebben de implementatie.md ook niet nodig aangezien we het al verwerkt hebben
+
+- **AI-bijdrage:** De overbodige IMPLEMENTATIE.md verwijderd en de historische verwijzing in dit logboek aangepast.
+- **Eigen keuze:** De gebruiker wilde de dubbele implementatiedocumentatie verwijderen.
+- **Controle/uitkomst:** De README bleef de centrale implementatiebeschrijving. De historische vermelding van het oude bestand bleef herkenbaar.
+
+### 2026-11-20 — S7-06
+
+**Prompt S7-06 — 2026-11-20**
+
+> Laten we focusen of automische testen zoals unit tests; pytests is misschien een idee? Wat raad je aan?
+
+- **AI-bijdrage:** Pytest voorgesteld en relevante zoek-, filter- en opslagcontroles aan TP-nummers gekoppeld.
+- **Eigen keuze:** De gebruiker richtte het vervolg op automatische tests voor de indicatoren.
+- **Controle/uitkomst:** Dit was advies. Op dat moment werd nog geen testsuite geïmplementeerd.
+
+### 2026-11-20 — S7-07
+
+**Prompt S7-07 — 2026-11-20**
+
+> I'm new to automated testing, like unit testing, how can I approach this in a way I can quickly and easily manage? Don't build anything however.
+
+- **AI-bijdrage:** Arrange–Act–Assert uitgelegd en een kleine start met voorspelbare gegevens en drie zoekgevallen voorgesteld.
+- **Eigen keuze:** De gebruiker vroeg om een eenvoudig leerpad en gaf expliciet geen bouwopdracht.
+- **Controle/uitkomst:** Alleen uitleg geleverd; geen applicatie- of testbestanden gewijzigd voor deze vraag.
+
+### 2026-11-20 — S7-08
+
+**Prompt S7-08 — 2026-11-20**
+
+> Is it easier if I structure my scripts instead of one big one? What do you suggest in order to simplify unit testing?
+
+- **AI-bijdrage:** Een mogelijke scheiding tussen GUI, logica en opslag uitgelegd, met functies die gewone gegevens ontvangen en teruggeven.
+- **Eigen keuze:** De gebruiker onderzocht of een andere scriptindeling testen eenvoudiger zou maken.
+- **Controle/uitkomst:** Dit bleef een structuurvoorstel. De latere keuze om één script te behouden staat bij S7-09.
+
+### 2026-11-20 — S7-09
+
+**Prompt S7-09 — 2026-11-20**
+
+> let's keep the stucture for now, and instead focus on unit testing for the indicators. What do you suggest
+
+- **AI-bijdrage:** Een gerichte aanpak voor TP-01, TP-02, TP-06 en later TP-11 voorgesteld, met een importeerbare programmastart en vervangen schermafhankelijkheden.
+- **Eigen keuze:** De gebruiker koos ervoor de bestaande scriptstructuur te behouden.
+- **Controle/uitkomst:** De keuze beperkte de eerste aanpassing. De tests zouden daardoor afhankelijk blijven van globale schermnamen en mocks.
+
+### 2026-11-20 — S7-10
+
+**Prompt S7-10 — 2026-11-20**
+
+> Show me the code to test this, don't implement this; but show me how to implement this
+
+- **AI-bijdrage:** Voorbeeldcode geleverd voor een pytest-fixture, vaste documentgegevens, invoervalidatie, de burgerlimiet en onderzoeksfilters. Ook de __main__-guard uitgelegd.
+- **Eigen keuze:** De gebruiker wilde de code zien en zelf toepassen; Codex kreeg nog geen opdracht om deze eerste voorbeelden in de repository te schrijven.
+- **Controle/uitkomst:** De latere gebruikersuitvoer toont zeven testgevallen, inclusief de aanvankelijk ontbrekende helper. De voorbeeldcode was dus een AI-bijdrage; de uitvoering en probleemmeldingen zijn apart vastgelegd.
+
+### 2026-11-20 — S7-11
+
+**Prompt S7-11 — 2026-11-20**
+
+Gebruikersbericht met terminaluitvoer; volledige inhoud in [GENAI-TERMINAL-2026-11-20.txt](GENAI-TERMINAL-2026-11-20.txt), onderdeel S7-11. Herkenningsfragment:
+
+```text
+ModuleNotFoundError: No module named 'policylens'
+```
+
+- **AI-bijdrage:** Uitgelegd dat pytest vanuit de tests-map het applicatiemodule niet vond. Starten vanuit de projectmap met python -m pytest voorgesteld en de bestandsnaam test_policylens.py toegelicht.
+- **Eigen keuze:** De gebruiker deelde de werkelijke foutuitvoer en vroeg wat die betekende.
+- **Controle/uitkomst:** De volgende uitvoer bereikte zeven testgevallen. De importfout verhinderde verzamelen; zij was geen mislukte zoektest.
+
+### 2026-11-20 — S7-12
+
+**Prompt S7-12 — 2026-11-20**
+
+Gebruikersbericht met terminaluitvoer; volledige inhoud in [GENAI-TERMINAL-2026-11-20.txt](GENAI-TERMINAL-2026-11-20.txt), onderdeel S7-12. Herkenningsfragment:
+
+```text
+NameError: name 'document' is not defined
+```
+
+- **AI-bijdrage:** De ontbrekende document()-helper herkend en getoond waar die op moduleniveau moest staan.
+- **Eigen keuze:** De gebruiker deelde de twee fouten en vijf geslaagde testgevallen.
+- **Controle/uitkomst:** Beide fouten ontstonden tijdens het voorbereiden van testgegevens, vóór het uitvoeren van de betrokken zoekfuncties.
+
+### 2026-11-20 — S7-13
+
+**Prompt S7-13 — 2026-11-20**
+
+Gebruikersbericht met terminaluitvoer; volledige inhoud in [GENAI-TERMINAL-2026-11-20.txt](GENAI-TERMINAL-2026-11-20.txt), onderdeel S7-13. Herkenningsfragment:
+
+```text
+2 failed, 5 passed in 0.54s
+7 passed in 0.23s
+```
+
+- **AI-bijdrage:** De geslaagde herhaling toegelicht en onderscheid gemaakt tussen testopzet en applicatiegedrag.
+- **Eigen keuze:** De gebruiker deelde zowel de eerdere fouten als de nieuwe uitvoer met zeven geslaagde gevallen.
+- **Controle/uitkomst:** De zeven gevallen betroffen drie ongeldige burgertermen, één limietcontrole, één filterscenario en twee ongeldige datums.
+
+### 2026-11-20 — S7-14
+
+**Prompt S7-14 — 2026-11-20**
+
+> Add it to the test script
+
+- **AI-bijdrage:** Op verzoek twee TP-11-tests toegevoegd aan tests/test_policylens.py voor nul treffers in beide weergaven. Bij de onderzoeksweergave de mock aangepast zodat een verwijderde oude rij niet opnieuw terugkwam.
+- **Eigen keuze:** De gebruiker gaf nu expliciet opdracht een aanvullende test in het script te verwerken.
+- **Controle/uitkomst:** Negen gevallen slaagden. De mockcorrectie verbeterde de testopzet; er werd hiervoor geen functionele zoekbug in policylens.py gerepareerd.
+
+### 2026-11-20 — S7-15
+
+**Prompt S7-15 — 2026-11-20**
+
+> 9 passed
+
+- **AI-bijdrage:** De testuitkomst bevestigd en aan LU4-indicator 4 gekoppeld.
+- **Eigen keuze:** De gebruiker bevestigde de uitvoer na de uitbreiding.
+- **Controle/uitkomst:** Negen geslaagde testgevallen dekken onderdelen van vier TP-ID’s. Zij bewijzen geen volledige applicatie- of GUI-dekking.
+
+### 2026-11-20 — S7-16
+
+**Prompt S7-16 — 2026-11-20**
+
+> Doe een update voor de volgende prompt die we al eerder gerunned hebben;
+>
+> Kijk naar de Rubric PRBA LU3/LU4 PDF's voor de indicatoren en kijk vervolgens naar mijn documentatie LU3_Ontwerp_v05 en de applicatie alsook de verantwoording voor LU3 en 4.
+>
+> Geef feedback naar hoe zuiver ik de indicatoren naleef voor de uitstekende score
+
+- **AI-bijdrage:** De rubrics opnieuw vergeleken met de inmiddels aanwezige tests. Geconstateerd dat de toenmalige verantwoording achterliep op het testbewijs.
+- **Eigen keuze:** De gebruiker vroeg om een herbeoordeling na het toevoegen van tests.
+- **Controle/uitkomst:** De suite slaagde. De afwijkingen ten opzichte van v0.5 en de ontbrekende foutafhandeling bleven relevant.
+
+### 2026-11-20 — S7-01
 
 **Prompt S7-01 — 2026-11-20**
 
@@ -608,26 +778,99 @@ vast. Als een bron ontbreekt, label de tekst als **reconstructie** of
 >
 > Laten we verantwoorden wat er niet is; wat stel je voor;
 
+- **AI-bijdrage:** Een afwijkingstabel voor alle tien stories voorgesteld, met status, gerealiseerd gedrag en gebruikersgevolgen. De motivering gebaseerd op projectnotities over beheersbaarheid en zelf opbouwen.
+- **Eigen keuze:** De gebruiker koos voor het verantwoorden van ontbrekende functies.
+- **Controle/uitkomst:** Het voorstel hield LU3 v0.5 als vergelijkingsbasis. Documentopslag werd expliciet onderscheiden van de ontbrekende zoekgeschiedenis.
+
+### 2026-11-20 — S7-02
+
 **Prompt S7-02 — 2026-11-20**
 
 > Dit klinkt goed, verwerk het in de documentatie
 
-- **AI-bijdrage:** de tien user stories vergeleken met de bestaande code en
-  een afwijkingstabel opgesteld met status, gerealiseerd gedrag en gevolgen
-  voor de gebruiker. De motivering is gebaseerd op de projectnotities over
-  beheersbaarheid, zelf opbouwen en gerichte AI-hulp. In de
-  [LU4-verantwoording](Verantwoording_LU4_PolicyLens_NL.docx), versie 1.1,
-  zijn die tabel, de bronwijziging, de aanvullende TinyDB-documentopslag en
-  de actuele testregistratie verwerkt. De testregistratie staat in hoofdstuk 5.
-- **Eigen keuze:** de gebruiker koos voor het verantwoorden van ontbrekende
-  functies en gaf opdracht het voorstel in de documentatie te verwerken.
-  Daarmee is geen gebruikersreview of volledige realisatie van v0.5 aangetoond.
-- **Controle/uitkomst:** `tests/test_policylens.py` opnieuw uitgevoerd met
-  pytest: **9 geslaagd**, verdeeld over onderdelen van TP-01, TP-02, TP-06 en
-  TP-11. De daadwerkelijke uitvoer staat in
-  [testresultaten LU4](testresultaten_LU4_2026-11-20.txt). De suite gebruikt
-  vaste gegevens en vervangt CSV-inlezen en schermonderdelen; echte
-  CSV-lezing, TinyDB en fysieke schermbediening vallen buiten die negen
-  gevallen. Openstaande foutafhandeling, opslagtests en gebruikersfeedback
-  zijn als beperkingen opgenomen. Het LU3-ontwerp v0.5 blijft de
-  vergelijkingsbasis.
+- **AI-bijdrage:** De afwijkingstabel, bronwijziging, TinyDB-toelichting en actuele testregistratie verwerkt in de LU4-verantwoording, versie 1.1. Dit logboek en het testuitvoerbestand bijgewerkt.
+- **Eigen keuze:** De gebruiker gaf opdracht het voorstel in de documentatie op te nemen.
+- **Controle/uitkomst:** Negen testgevallen opnieuw geslaagd; de uitvoer staat in testresultaten_LU4_2026-11-20.txt. De Word-inhoudsopgave en documentstructuur zijn gecontroleerd. De registratie voegde geen ontbrekende functionaliteit of gebruikersreview toe.
+
+### 2026-11-20 — S7-17
+
+**Prompt S7-17 — 2026-11-20**
+
+> Doe een update voor de volgende prompt die we al eerder gerunned hebben;
+>
+> Kijk naar de Rubric PRBA LU3/LU4 PDF's voor de indicatoren en kijk vervolgens naar mijn documentatie LU3_Ontwerp_v05 en de applicatie alsook de verantwoording voor LU3 en 4.
+>
+> Geef feedback naar hoe zuiver ik de indicatoren naleef voor de uitstekende score
+
+- **AI-bijdrage:** De bijgewerkte verantwoording opnieuw beoordeeld. De verbeterde traceerbaarheid erkend en resterende punten voor programmeerprincipes, tests, tools, feedback en reflectie benoemd.
+- **Eigen keuze:** De gebruiker vroeg om een nieuwe beoordeling na de documentatieaanpassing.
+- **Controle/uitkomst:** De suite slaagde opnieuw. De afwijkingsverantwoording was nu aanwezig; grondige foutafhandeling en een functionele verbetercyclus waren nog niet aangetoond.
+
+### 2026-11-21 — S8-01
+
+**Prompt S8-01 — 2026-11-21**
+
+> Laten we kijken naar LU 4 indicator voor programmeerprincipe. Aangezien het voor de meeste punten is, hoe kan ik dit verbeteren? Suggesties?
+
+- **AI-bijdrage:** Gerichte foutafhandeling, hergebruik van dubbele zoeklogica, zorgvuldige databaseopslag, verklarende documentatie en benoemde limieten voorgesteld. De volgorde zoeken → sorteren → 25 selecteren → filters expliciet behouden.
+- **Eigen keuze:** De gebruiker richtte de aandacht op de programmeerindicator van 40% en vroeg om suggesties.
+- **Controle/uitkomst:** Dit waren voorstellen. De gedeelde zoekfunctie, aanvullende foutafhandeling en veiligere opslag zijn in deze documentatietaak niet geïmplementeerd.
+
+### 2026-11-21 — S8-02
+
+**Prompt S8-02 — 2026-11-21**
+
+> Laten we het GENAI-log bijwerken en dit reflecteren in het verantwoordingsverslag voor LU3 en LU4.
+
+- **AI-bijdrage:** Het zichtbare gesprek vollediger geregistreerd en de GenAI-reflecties in beide verantwoordingen bijgewerkt. Bij LU3 ligt de nadruk op ontwerpreview en haalbaarheid; bij LU4 op testopzet, uitvoering, eigen keuzes en nog open programmeerverbeteringen.
+- **Eigen keuze:** De gebruiker gaf opdracht het logboek en beide verantwoordingen te actualiseren.
+- **Controle/uitkomst:** Hercontrole op 21 november: 9 geslaagd, vastgelegd in testresultaten_LU4_2026-11-21.txt. De actualisatie blijft beperkt tot documentatie en bewijs; eigen beheersing en uitgevoerde gebruikersreviews worden niet zonder bron als behaald opgevoerd.
+
+### 2026-11-21 — S8-03
+
+**Prompt S8-03 — 2026-11-21**
+
+> Doe een update voor de volgende prompt die we al eerder gerunned hebben;
+>
+> Kijk naar de Rubric PRBA LU3/LU4 PDF's voor de indicatoren en kijk vervolgens naar mijn documentatie LU3_Ontwerp_v05 en de applicatie alsook de verantwoording voor LU3 en 4.
+>
+> Geef feedback naar hoe zuiver ik de indicatoren naleef voor de uitstekende score
+
+- **AI-bijdrage:** Het ontwerp, de code, de rubrics en de bijgewerkte
+  verantwoordingen opnieuw vergeleken. De concretere reflectie en
+  feedbackregistratie erkend en de resterende technische en bewijsmatige
+  aandachtspunten benoemd.
+- **Eigen keuze:** De gebruiker vroeg om een herbeoordeling na de
+  actualisatie van het logboek en beide verantwoordingen.
+- **Controle/uitkomst:** Negen testgevallen opnieuw geslaagd. De
+  codefunctionaliteit en testdekking waren inhoudelijk gelijk gebleven;
+  de verbetering zat vooral in reflectie en herleidbaarheid. Deze beoordeling
+  voerde geen programmeerverbeteringen uit.
+
+### 2026-11-21 — S8-04
+
+**Prompt S8-04 — 2026-11-21**
+
+> Mijn strategie was van full-ai, naar collobarated ai en opbouwend van scratch via \
+> **Python GUI Programming with Tkinter** en python crash course alsook via feedback van medestudent en van docenten gedurende weken. Licht dit toe in mijn woorden voor leerprocess en gen AI voor lu 3 en lu 4 verantwoording verslag
+
+- **AI-bijdrage:** De door de gebruiker toegelichte strategie in de ik-vorm
+  verwerkt in beide verantwoordingen. Bij LU3 ligt de nadruk op haalbaarheid,
+  ontwerpkeuzes en gebruikerswaarde; bij LU4 op zelf opbouwen vanuit de
+  leerboeken, gerichte AI-hulp, feedback en het uitvoeren van tests. Ook de
+  feedbackparagrafen en boekverwijzingen zijn bijgewerkt.
+- **Eigen keuze:** De gebruiker beschrijft zelf de overgang van full-ai naar
+  samenwerken met AI en from scratch opbouwen, met de twee boeken als
+  leidraad en gedurende weken feedback van een medestudent en docenten.
+  Deze persoonlijke toelichting is de bron voor de nieuwe formulering.
+- **Controle/uitkomst:** De toelichting is opgenomen in LU3 versie 1.2 en
+  LU4 versie 1.3. Er zijn geen aanvullende feedbackcitaten, namen of
+  gespreksdatums verzonnen. De concrete notitie over Sander blijft als
+  bestaand projectbewijs herkenbaar. Het onderscheid tussen begeleiding
+  over de weken en apart vastgelegde taaktests is behouden. Applicatiecode
+  en testscript zijn voor deze tekstactualisatie niet gewijzigd.
+- **Boekbronnen:** de eerder genoemde edities uit S6-06 zijn aangehouden:
+  [Python Crash Course, 3e editie](https://nostarch.com/python-crash-course-3rd-edition)
+  en [Python GUI Programming with Tkinter, 2e editie](https://www.packtpub.com/en-us/product/python-gui-programming-with-tkinter-2nd-edition-9781801815925).
+  Voor de bibliografie is het copyrightjaar 2023 van Python Crash Course
+  gecontroleerd op de [copyrightpagina van de uitgever](https://nostarch.com/download/PCC3e_copyright.pdf).
