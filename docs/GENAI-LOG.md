@@ -18,8 +18,8 @@ hersteld. Eén bestaand citaat is gecorrigeerd naar de oorspronkelijke tekst:
 Na die controle zijn leervragen S6-05 en S6-06 toegevoegd. Het overzicht tot en
 met 11 november bevat **49 gebruikersprompts** en vijf antwoorden uit
 keuzedialogen. De actualisatie van 21 november registreert daarnaast
-**25 gebruikersberichten** uit het zichtbare vervolg: 17 bij S7 (20 november)
-en acht bij S8 (21 november). Daarmee zijn binnen deze afbakening **74
+**27 gebruikersberichten** uit het zichtbare vervolg: 17 bij S7 (20 november)
+en tien bij S8 (21 november). Daarmee zijn binnen deze afbakening **76
 gebruikersberichten** geregistreerd. Exacte prompttijden en gesprekken buiten
 dit overzicht zijn hiermee niet alsnog volledig gecontroleerd.
 
@@ -600,7 +600,7 @@ vast. Als een bron ontbreekt, label de tekst als **reconstructie** of
 ## Gespreksaanvulling 20 en 21 november 2026
 
 - **Bron:** de gebruikersberichten en antwoorden die zichtbaar zijn in dit Codex-gesprek. Datumtoewijzing volgt de clientcontext Europe/Amsterdam; exacte prompttijden en een sessie-ID zijn hier niet beschikbaar.
-- **Afbakening:** S7 registreert 17 berichten van 20 november en S8 acht berichten van 21 november. Andere gesprekken, apparaten of verwijderde berichten zijn hiermee niet gecontroleerd. De oorspronkelijke ontwerpprompt blijft ontbreken.
+- **Afbakening:** S7 registreert 17 berichten van 20 november en S8 tien berichten van 21 november. Andere gesprekken, apparaten of verwijderde berichten zijn hiermee niet gecontroleerd. De oorspronkelijke ontwerpprompt blijft ontbreken.
 - **Bestaande ID’s:** S7-01 en S7-02 behouden hun eerdere betekenis. De overige S7-ID’s zijn bij deze aanvulling toegekend. De blokken hieronder volgen de gespreksvolgorde, niet de nummering.
 - **Nauwkeurigheid:** tekstvragen zijn letterlijk overgenomen, met witruimte rond het bericht weggelaten. De drie lange terminalberichten staan in [de terminalbijlage](GENAI-TERMINAL-2026-11-20.txt); alleen chatopmaak en escapes zijn daar genormaliseerd. De korte foutregels hieronder zijn herkenningsfragmenten, geen volledige prompts.
 
@@ -608,8 +608,8 @@ vast. Als een bron ontbreekt, label de tekst als **reconstructie** of
 | --- | --- | ---: |
 | S1–S6 | Tot en met 11 november | 49 |
 | S7 | 20 november | 17 |
-| S8 | 21 november | 8 |
-| **Totaal binnen deze afbakening** | | **74** |
+| S8 | 21 november | 10 |
+| **Totaal binnen deze afbakening** | | **76** |
 
 ### 2026-11-20 — S7-03
 
@@ -922,3 +922,35 @@ Gebruikersbericht met terminaluitvoer; volledige inhoud in [GENAI-TERMINAL-2026-
 - **AI-bijdrage:** De feedback verwerkt in de feedback- en reflectiesecties van LU3 versie 1.4 en LU4 versie 1.5. Bij LU4 ook de test- en toolbeschrijving aangevuld. De eerdere vermelding dat er nog geen gebruikersfeedback beschikbaar was, is aangepast. De duidelijke, vindbare interface en de beperkingen door de kleine mock-CSV zijn onderscheiden. De code sorteert zoekresultaten al automatisch op datum; zelf een kolom of sorteervolgorde kiezen ontbreekt. Dit onderscheid is in de toelichting opgenomen.
 - **Eigen keuze:** De gebruiker vroeg deze concrete feedback toe te voegen aan de verantwoording. Een gevarieerdere dataset, instelbare sortering, een development-branch en geleidelijke projectstructuur zijn als vervolgstappen beschreven. De huidige hoofdbranch heet `master`.
 - **Controle/uitkomst:** De aanpassingen zijn in beide geopende Worddocumenten aangebracht en opgeslagen; inhoudsopgaven en paginanummers zijn bijgewerkt. De usabilitytest is een kwalitatieve gebruikerscontrole naast de tien eerder geslaagde pytest-gevallen. Er zijn geen extra taakstappen, meetresultaten, feedbackdatums of uitgevoerde hertests verzonnen. Applicatiecode, tests, branches en projectstructuur zijn bij deze documentatieaanpassing niet gewijzigd.
+
+### 2026-11-21 — S8-09
+
+**Prompt S8-09 — 2026-11-21**
+
+> Doe een update voor de volgende prompt die we al eerder gerunned hebben;
+>
+> Kijk naar de Rubric PRBA LU3/LU4 PDF's voor de indicatoren en kijk vervolgens naar mijn documentatie LU3_Ontwerp_v05 en de applicatie alsook de verantwoording voor LU3 en 4.
+>
+> Geef feedback naar hoe zuiver ik de indicatoren naleef voor de uitstekende score
+
+- **AI-bijdrage:** De rubrics opnieuw vergeleken met ontwerp v0.5, de applicatie, tests en LU3 versie 1.4 / LU4 versie 1.5. De vastgelegde functionele verbetercyclus en de geregistreerde usabilityfeedback als vooruitgang benoemd. Resterende aandachtspunten voor foutafhandeling, toolvergelijking en aantoonbaar effect van feedback toegelicht.
+- **Eigen keuze:** De gebruiker vroeg om een actuele beoordeling na het toevoegen van de menselijke feedback.
+- **Controle/uitkomst:** De bestaande suite opnieuw uitgevoerd: tien testgevallen geslaagd. Losse controles bevestigden onafgevangen fouten bij een ontbrekende titel, een ongeldige documentdatum en bewaren naar een ontoegankelijk doel; deze controles tellen niet mee bij de tien pytest-gevallen. De CSV bevat 200 records. De beoordeling maakte onderscheid tussen automatische datumsortering en zelf kunnen sorteren, en tussen een LU3-testplan en uitgevoerde LU4-tests. De documentatie en code zijn tijdens die beoordeling niet aangepast.
+
+### 2026-11-21 — S8-10
+
+**Prompt S8-10 — 2026-11-21**
+
+> De feedback van Sander (docent) was verwerkt door ipv AI trachten te reverse engineeren, uiteindelijk overgestapt van scratch om van scratch op te bouwen. Dit was de meest impactvolle feedback die ik kreeg en ook toegepast heb als project strategie.
+>
+> Laten we dit duidelijk maken in de documentatie.
+>
+> Laten we ook de tooling vergelijking tabel maken voor ontwikkeltools.
+>
+> Laten we ook toelichten dat ondanks ik veel heb afgeweken van het oorspronkelijke ontwerp, was dit de meeste realistische keuze. Hiervan heb ik scope management en project management geleerd.
+
+- **Bron/eigen toelichting:** De gebruiker benoemt Sander als docent, beschrijft zijn advies als de meest impactvolle feedback en bevestigt dat het al is toegepast als projectstrategie. De overgang was van een brede AI-uitwerking proberen te reverse engineeren naar zelf vanaf nul opbouwen. Ook de realistische scopekeuze en het leren van scope management en projectmanagement zijn door de gebruiker aangeleverd.
+- **AI-bijdrage:** Deze toelichting verwerkt in de feedback, leerreflectie en conclusie van LU3 versie 1.5 en LU4 versie 1.6, en in de scopeverantwoording bij LU4. De keten is expliciet gemaakt: feedback van Sander → vanaf nul opbouwen → kleinere scope en prioriteiten → bijgestelde projectstrategie. Er is geen nieuw letterlijk feedbackcitaat of feedbackdatum verzonnen; de bestaande projectnotitie over 13 november blijft herkenbaar.
+- **Toolvergelijking:** In LU4, §4, een tabel toegevoegd met VS Code/PyCharm, Tkinter/PySide6, Git/Subversion en pytest/unittest. TinyDB/SQLite staat als aanvullende opslagkeuze in dezelfde tabel. De tabel motiveert de aansluiting op leerboeken, bestaande werkwijze en projectscope. Zij is uitdrukkelijk een vergelijking achteraf, gebaseerd op officiële documentatie; zij claimt geen praktijkproef met alle alternatieven. Bronnen T1–T5 staan in §9 van LU4.
+- **Eigen keuze en gevolg:** De gebruiker kiest voor een kleinere realisatie als meest realistische projectaanpak. De reflectie benoemt functies prioriteren, grenzen stellen, haalbaarheid herbeoordelen en de werkwijze aanpassen als concrete lessen. De ontbrekende functies en gevolgen voor de gebruiker blijven zichtbaar in de afwijkingstabel; de documentatie presenteert de oorspronkelijke scope niet alsnog als volledig gerealiseerd.
+- **Controle/uitkomst:** Beide Worddocumenten zijn inhoudelijk bijgewerkt en de toolvergelijking is toegevoegd. De documentstructuur en inhoudsopgaven zijn gecontroleerd. Applicatiecode, testscript, echte database, oorspronkelijke ontwerpbaseline en Git-branches zijn bij deze actualisatie ongewijzigd. De tien eerder geslaagde pytest-gevallen worden als bestaand bewijs behouden; deze documentatieaanpassing voegt geen nieuwe testresultaten toe.
