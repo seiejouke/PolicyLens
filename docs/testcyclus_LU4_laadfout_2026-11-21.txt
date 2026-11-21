@@ -1,0 +1,112 @@
+﻿PolicyLens NL - functionele verbetercyclus L-02
+Datum: 21 november 2026 (Europe/Amsterdam)
+
+FASE 1 - voor de codewijziging
+Verwachting: een duidelijke melding, behoud van vorige resultaten en behoud van het beschadigde bestand.
+Commando: .\.venv\Scripts\python.exe -m pytest tests/test_policylens.py::test_load_corrupt_database_shows_message -v -p no:cacheprovider
+
+============================= test session starts =============================
+platform win32 -- Python 3.14.5, pytest-9.2.0, pluggy-1.7.0 -- C:\Users\Jouke\Documents\PolicyLens\.venv\Scripts\python.exe
+rootdir: C:\Users\Jouke\Documents\PolicyLens
+collecting ... collected 1 item
+
+tests/test_policylens.py::test_load_corrupt_database_shows_message FAILED [100%]
+
+================================== FAILURES ===================================
+__________________ test_load_corrupt_database_shows_message ___________________
+
+app = <module 'policylens' from 'C:\\Users\\Jouke\\Documents\\PolicyLens\\policylens.py'>
+tmp_path = WindowsPath('C:/Users/Jouke/AppData/Local/Temp/pytest-of-Jouke/pytest-0/test_load_corrupt_database_sho0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000024B8B586650>
+
+    def test_load_corrupt_database_shows_message(app, tmp_path, monkeypatch):
+        # L-02: gebruik een tijdelijk bestand zodat echte opgeslagen data intact blijft.
+        database_path = tmp_path / "broken.json"
+        database_path.write_text("{broken", encoding="utf-8")
+        monkeypatch.setattr(app, "DATABASE_FILE", database_path)
+        previous_document = document("previous", "2026-11-19")
+        app.research_documents.append(previous_document)
+    
+>       app.load_research_results()
+
+tests\test_policylens.py:189: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+policylens.py:192: in load_research_results
+    documents = database.table('documents').all()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\tinydb\table.py:233: in all
+    return list(iter(self))
+           ^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\tinydb\table.py:717: in __iter__
+    for doc_id, doc in self._read_table().items():
+                       ^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\tinydb\table.py:766: in _read_table
+    tables = self._storage.read()
+             ^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\tinydb\storages.py:140: in read
+    return json.load(self._handle)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+..\..\AppData\Local\Programs\Python\Python314\Lib\json\__init__.py:298: in load
+    return loads(fp.read(),
+..\..\AppData\Local\Programs\Python\Python314\Lib\json\__init__.py:352: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\AppData\Local\Programs\Python\Python314\Lib\json\decoder.py:345: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <json.decoder.JSONDecoder object at 0x0000024B88B48C20>, s = '{broken'
+idx = 0
+
+    def raw_decode(self, s, idx=0):
+        """Decode a JSON document from ``s`` (a ``str`` beginning with
+        a JSON document) and return a 2-tuple of the Python
+        representation and the index in ``s`` where the document ended.
+    
+        This can be used to decode a JSON document from a string that may
+        have extraneous data at the end.
+    
+        """
+        try:
+>           obj, end = self.scan_once(s, idx)
+                       ^^^^^^^^^^^^^^^^^^^^^^
+E           json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+
+..\..\AppData\Local\Programs\Python\Python314\Lib\json\decoder.py:361: JSONDecodeError
+=========================== short test summary info ===========================
+FAILED tests/test_policylens.py::test_load_corrupt_database_shows_message - j...
+============================== 1 failed in 0.27s ==============================
+
+Exitcode: 1
+
+FASE 2 - na de codewijziging
+Wijziging: gerichte afhandeling van OSError, UnicodeError en JSONDecodeError in load_research_results().
+Constanten voor de bestaande grenzen 2, 25 en 10; beschrijving en uitleg in de code bijgewerkt.
+Commando: .\.venv\Scripts\python.exe -m pytest tests/test_policylens.py -v -p no:cacheprovider
+
+============================= test session starts =============================
+platform win32 -- Python 3.14.5, pytest-9.2.0, pluggy-1.7.0 -- C:\Users\Jouke\Documents\PolicyLens\.venv\Scripts\python.exe
+rootdir: C:\Users\Jouke\Documents\PolicyLens
+collecting ... collected 10 items
+
+tests/test_policylens.py::test_tp01_burger_rejects_short_input[] PASSED  [ 10%]
+tests/test_policylens.py::test_tp01_burger_rejects_short_input[  ] PASSED [ 20%]
+tests/test_policylens.py::test_tp01_burger_rejects_short_input[a] PASSED [ 30%]
+tests/test_policylens.py::test_tp02_burger_shows_ten_newest_results PASSED [ 40%]
+tests/test_policylens.py::test_tp06_research_filters_dates_and_document_type PASSED [ 50%]
+tests/test_policylens.py::test_tp06_research_rejects_invalid_dates[31-02-2026--Gebruik geldige datums als dd-mm-jjjj.] PASSED [ 60%]
+tests/test_policylens.py::test_tp06_research_rejects_invalid_dates[20-11-2026-10-11-2026-Vanaf datum mag niet na Tot datum liggen] PASSED [ 70%]
+tests/test_policylens.py::test_tp11_burger_handles_no_matching_documents PASSED [ 80%]
+tests/test_policylens.py::test_tp11_research_handles_no_matching_documents PASSED [ 90%]
+tests/test_policylens.py::test_load_corrupt_database_shows_message PASSED [100%]
+
+============================= 10 passed in 0.14s ==============================
+
+Exitcode: 0
+
+AANVULLENDE LOSSE CONTROLES - niet meegeteld bij de tien pytest-gevallen
+Geldig tijdelijk TinyDB-bestand laden: geslaagd; record A getoond.
+Bestandsfout: melding en behoud van eerdere resultaten gecontroleerd.
+Ongeldige UTF-8: melding en behoud van eerdere resultaten gecontroleerd.
+Het echte policy_data.json is ongewijzigd (SHA-256 vergeleken).

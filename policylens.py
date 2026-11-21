@@ -1,11 +1,17 @@
-"""A policylens for searching and retreiving data from the TweedeKamer API to a local database"""
+"""Lokale Tkinter-app voor zoeken in fictieve CSV-data met TinyDB-opslag."""
 
 import tkinter as tk
 from tkinter import ttk
 import csv
 from pathlib import Path # for csv
 from datetime import datetime # checking and verifying dates for mock searches
+from json import JSONDecodeError
 from tinydb import TinyDB
+
+# Vaste ontwerpafspraken: beide zoekroutes gebruiken dezelfde grenzen.
+MIN_SEARCH_LENGTH = 2
+MAX_RETRIEVED_RESULTS = 25
+MAX_BURGER_RESULTS = 10
 
 CSV_FILE = Path(__file__).with_name( # Path called from pathlib/Path
     'policylens_mock_tweede_kamer.csv'
@@ -16,6 +22,7 @@ DATABASE_FILE = Path(__file__).with_name("policy_data.json")
 research_documents = []
 #Later mogelijk functies in een apart script callen?
 def load_mock_document():
+    """Lees de fictieve CSV-records als een lijst met dictionaries."""
     with CSV_FILE.open(
         encoding='utf-8-sig', # encoding standard
         newline=''
@@ -24,13 +31,14 @@ def load_mock_document():
         return list(reader)
     
 def search_burger():
+    """Zoek in titel en onderwerp en toon de beperkte burgerresultaten."""
     term = search_text.get().strip().casefold() 
     #.strip() verwijdert omliggende spaties. .casefold() zorgt dat bijvoorbeeld DATA ook overeenkomt met data
 
     for item in burger_results.get_children():
         burger_results.delete(item)
 
-    if len(term) < 2:
+    if len(term) < MIN_SEARCH_LENGTH:
         burger_status.set('Vul minimaal twee tekens in.')
         return
 
@@ -58,8 +66,9 @@ def search_burger():
         reverse=True
     )
 
-    retrieved = matches[:25] # TP-02 - 
-    visible = retrieved[:10] # TP-02 - Burger toont maximaal tien resultaten
+    # De nieuwste treffers staan vooraan; Burger toont daarvan een kleinere set.
+    retrieved = matches[:MAX_RETRIEVED_RESULTS]
+    visible = retrieved[:MAX_BURGER_RESULTS]
 
     for document in visible:
         burger_results.insert(
@@ -80,6 +89,7 @@ def search_burger():
         burger_status.set('Geen documenten gevonden.')
 
 def search_researcher():
+    """Pas onderzoeksfilters toe binnen de nieuwste geselecteerde treffers."""
     term = search_text.get().strip().casefold() # remove empty space and force to lowercase (better searches)
     from_text = from_date_inp.get().strip()
     to_text = to_date_inp.get().strip()
@@ -87,7 +97,7 @@ def search_researcher():
 
     display_research_results([])
 
-    if len(term) < 2: # minimaal twee tekens vereist; 1 letter behoort geen resultaten te vinden
+    if len(term) < MIN_SEARCH_LENGTH: # dezelfde invoergrens als bij Burger
         research_status.set('Vul minimaal twee tekens in.') # Misschien wat te kort? Hoe kom ik hierachter?
         return
 
@@ -128,8 +138,9 @@ def search_researcher():
         key=lambda document: document['Datum'],
         reverse=True
     )
-    retrieved = matches[:25] # limit data pulls; vague process?
-    visible = [] # what does this do? pull 25 into empty?
+    # Volgens het ontwerp filteren we alleen binnen deze begrensde set.
+    retrieved = matches[:MAX_RETRIEVED_RESULTS]
+    visible = [] # verzamel hier de documenten die aan alle filters voldoen
 
     for document in retrieved:
         document_date = datetime.strptime(document['Datum'], '%Y-%m-%d') # why is date in reverse?
@@ -188,9 +199,16 @@ def save_research_results(): # data opslag for tinyDB
     )
 
 def load_research_results(): # data ophalen uit tinyDB
-    with TinyDB(DATABASE_FILE, encoding='utf-8') as database:
-        documents = database.table('documents').all()
+    """Laad lokale documenten en behoud vorige resultaten bij een leesfout."""
+    try:
+        with TinyDB(DATABASE_FILE, encoding='utf-8') as database:
+            documents = database.table('documents').all()
+    except (OSError, UnicodeError, JSONDecodeError):
+        # TinyDB leest JSON: het pad, de codering of de JSON-inhoud kan fout zijn.
+        research_status.set("Lokale opslag kon niet worden gelezen.")
+        return # stop zonder het bronbestand of de vorige resultaten te vervangen
 
+    # Werk het scherm pas bij nadat het lezen volledig is gelukt.
     display_research_results(documents)
 
     research_status.set(

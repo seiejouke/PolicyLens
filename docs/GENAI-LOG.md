@@ -18,8 +18,8 @@ hersteld. Eén bestaand citaat is gecorrigeerd naar de oorspronkelijke tekst:
 Na die controle zijn leervragen S6-05 en S6-06 toegevoegd. Het overzicht tot en
 met 11 november bevat **49 gebruikersprompts** en vijf antwoorden uit
 keuzedialogen. De actualisatie van 21 november registreert daarnaast
-**21 gebruikersberichten** uit het zichtbare vervolg: 17 bij S7 (20 november)
-en vier bij S8 (21 november). Daarmee zijn binnen deze afbakening **70
+**25 gebruikersberichten** uit het zichtbare vervolg: 17 bij S7 (20 november)
+en acht bij S8 (21 november). Daarmee zijn binnen deze afbakening **74
 gebruikersberichten** geregistreerd. Exacte prompttijden en gesprekken buiten
 dit overzicht zijn hiermee niet alsnog volledig gecontroleerd.
 
@@ -600,7 +600,7 @@ vast. Als een bron ontbreekt, label de tekst als **reconstructie** of
 ## Gespreksaanvulling 20 en 21 november 2026
 
 - **Bron:** de gebruikersberichten en antwoorden die zichtbaar zijn in dit Codex-gesprek. Datumtoewijzing volgt de clientcontext Europe/Amsterdam; exacte prompttijden en een sessie-ID zijn hier niet beschikbaar.
-- **Afbakening:** S7 registreert 17 berichten van 20 november en S8 vier berichten van 21 november. Andere gesprekken, apparaten of verwijderde berichten zijn hiermee niet gecontroleerd. De oorspronkelijke ontwerpprompt blijft ontbreken.
+- **Afbakening:** S7 registreert 17 berichten van 20 november en S8 acht berichten van 21 november. Andere gesprekken, apparaten of verwijderde berichten zijn hiermee niet gecontroleerd. De oorspronkelijke ontwerpprompt blijft ontbreken.
 - **Bestaande ID’s:** S7-01 en S7-02 behouden hun eerdere betekenis. De overige S7-ID’s zijn bij deze aanvulling toegekend. De blokken hieronder volgen de gespreksvolgorde, niet de nummering.
 - **Nauwkeurigheid:** tekstvragen zijn letterlijk overgenomen, met witruimte rond het bericht weggelaten. De drie lange terminalberichten staan in [de terminalbijlage](GENAI-TERMINAL-2026-11-20.txt); alleen chatopmaak en escapes zijn daar genormaliseerd. De korte foutregels hieronder zijn herkenningsfragmenten, geen volledige prompts.
 
@@ -608,8 +608,8 @@ vast. Als een bron ontbreekt, label de tekst als **reconstructie** of
 | --- | --- | ---: |
 | S1–S6 | Tot en met 11 november | 49 |
 | S7 | 20 november | 17 |
-| S8 | 21 november | 4 |
-| **Totaal binnen deze afbakening** | | **70** |
+| S8 | 21 november | 8 |
+| **Totaal binnen deze afbakening** | | **74** |
 
 ### 2026-11-20 — S7-03
 
@@ -874,3 +874,51 @@ Gebruikersbericht met terminaluitvoer; volledige inhoud in [GENAI-TERMINAL-2026-
   en [Python GUI Programming with Tkinter, 2e editie](https://www.packtpub.com/en-us/product/python-gui-programming-with-tkinter-2nd-edition-9781801815925).
   Voor de bibliografie is het copyrightjaar 2023 van Python Crash Course
   gecontroleerd op de [copyrightpagina van de uitgever](https://nostarch.com/download/PCC3e_copyright.pdf).
+
+### 2026-11-21 — S8-05
+
+**Prompt S8-05 — 2026-11-21**
+
+> Doe een update voor de volgende prompt die we al eerder gerunned hebben;
+>
+> Kijk naar de Rubric PRBA LU3/LU4 PDF's voor de indicatoren en kijk vervolgens naar mijn documentatie LU3_Ontwerp_v05 en de applicatie alsook de verantwoording voor LU3 en 4.
+>
+> Geef feedback naar hoe zuiver ik de indicatoren naleef voor de uitstekende score
+
+- **AI-bijdrage:** Het ontwerp, de applicatie, de rubrics en de verantwoordingen opnieuw vergeleken na de toelichting op de leerstrategie. Resterende aandachtspunten voor de indicatoren benoemd, waaronder programmeerprincipes en aantoonbare functionele verbetering na een test.
+- **Eigen keuze:** De gebruiker vroeg om een nieuwe beoordeling na de reflectieaanpassing.
+- **Controle/uitkomst:** De beschrijving van het leerproces was bijgewerkt. De code bevatte toen nog geen aanvullende afhandeling voor beschadigde lokale opslag. Deze beoordeling veranderde de applicatie niet.
+
+### 2026-11-21 — S8-06
+
+**Prompt S8-06 — 2026-11-21**
+
+> Laten we programmeerprincipes aanpakken, wat zijn simpele aanpassingen die ik kan maken met geringe code die ik kan implementeren?
+
+- **AI-bijdrage:** Kleine aanpassingen met codevoorbeelden voorgesteld: specifieke leesfouten bij TinyDB afvangen, de grenzen 2/25/10 als constanten benoemen, de CSV-bron correct beschrijven en functies en keuzes toelichten. Een test met beschadigde JSON voorgesteld om een echte applicatiefout en de oplossing vast te leggen.
+- **Eigen keuze:** De gebruiker vroeg om beperkte, begrijpelijke codeaanpassingen binnen de bestaande structuur.
+- **Controle/uitkomst:** Dit bericht leverde advies en voorbeelden op. De implementatie volgde pas op de opdracht S8-07.
+
+### 2026-11-21 — S8-07
+
+**Prompt S8-07 — 2026-11-21**
+
+> Pas dit toe in de code en reflecteer deze aanpassing in de reflectie documentatie, met comment uitleg in de code zelf
+
+- **AI-bijdrage:** Codex voegde L-02 toe aan `tests/test_policylens.py` en voerde deze eerst uit tegen de bestaande laadfunctie. De test faalde op `JSONDecodeError`. Daarna paste Codex `load_research_results()` aan om `OSError`, `UnicodeError` en `JSONDecodeError` af te vangen. Het scherm wordt pas na succesvol lezen bijgewerkt; bij deze leesfouten verschijnt een melding. Ook de constanten `MIN_SEARCH_LENGTH`, `MAX_RETRIEVED_RESULTS` en `MAX_BURGER_RESULTS`, docstrings en verklarende comments zijn toegevoegd. De structuur met één script en de selectievolgorde zijn behouden.
+- **Eigen keuze:** De gebruiker gaf opdracht de voorgestelde kleine verbeteringen uit te voeren, met uitleg in de code en reflectie. Codex schreef deze wijziging en de test en voerde de controles uit. Dit is geen registratie dat de gebruiker de wijziging zelfstandig heeft geschreven of getest.
+- **Controle/uitkomst:** Eerst één falende L-02; na de wijziging **10 pytest-gevallen geslaagd**. L-02 gebruikt een echt tijdelijk TinyDB-bestand en controleert de melding, het behoud van eerdere resultaten, het uitblijven van schermvervanging en het ongewijzigde beschadigde bestand. De echte `policy_data.json` is ongewijzigd. De daadwerkelijke uitvoer staat in [de testcyclus L-02](testcyclus_LU4_laadfout_2026-11-21.txt). Aanvullende losse controles met geldige opslag, een bestandsfout en ongeldige UTF-8 staan in hetzelfde bestand en tellen niet mee bij de tien pytest-gevallen.
+- **Documentatie:** LU3 versie 1.3 en LU4 versie 1.4 beschrijven de ontwerpafspraken, programmeerprincipes, fout-test-hertestcyclus en AI-bijdrage. De story US-G01 blijft gedeeltelijk gerealiseerd: documentvalidatie, schrijffouten en netwerkherstel zijn hiermee niet opgelost. Hergebruik van de dubbele zoeklogica en een automatische volledige bewaar-en-laadtest blijven vervolgstappen.
+
+### 2026-11-21 — S8-08
+
+**Prompt S8-08 — 2026-11-21**
+
+> Voeg hierbij toe; als usability test op 20 november van een mede klasgenoot Erik B; opgemerkte gebruikers ervaring; UI is duidelijk en vindbaar; zoektermen zijn gelimiteerd; dit mede door een klein mock csv. Sorteren is niet mogelijk, gelimiteerde sorteringsfunctie bij onderzoekers UI. Simpel maar duidelijk.
+>
+> Feedback van Melvin gebruik Git; gebruik naast Main, extra branches zoals development voor een veiliger gebruik van version control. Hiernaast langzaam structuur toevoegen om het overzicht te bewaren in je repo/project voor gebruikersvriendelijker gebruik van Git in het algemeen.
+
+- **Bron:** De gebruiker levert op 21 november de terugkoppeling van Eriks usabilitytest van **20 november 2026** en het Git-advies van Melvin aan. De datum van Melvins feedback is niet opgegeven. Dit zijn ontvangen menselijke feedbackpunten; Codex heeft de test niet geobserveerd en heeft de feedback niet zelf bedacht.
+- **AI-bijdrage:** De feedback verwerkt in de feedback- en reflectiesecties van LU3 versie 1.4 en LU4 versie 1.5. Bij LU4 ook de test- en toolbeschrijving aangevuld. De eerdere vermelding dat er nog geen gebruikersfeedback beschikbaar was, is aangepast. De duidelijke, vindbare interface en de beperkingen door de kleine mock-CSV zijn onderscheiden. De code sorteert zoekresultaten al automatisch op datum; zelf een kolom of sorteervolgorde kiezen ontbreekt. Dit onderscheid is in de toelichting opgenomen.
+- **Eigen keuze:** De gebruiker vroeg deze concrete feedback toe te voegen aan de verantwoording. Een gevarieerdere dataset, instelbare sortering, een development-branch en geleidelijke projectstructuur zijn als vervolgstappen beschreven. De huidige hoofdbranch heet `master`.
+- **Controle/uitkomst:** De aanpassingen zijn in beide geopende Worddocumenten aangebracht en opgeslagen; inhoudsopgaven en paginanummers zijn bijgewerkt. De usabilitytest is een kwalitatieve gebruikerscontrole naast de tien eerder geslaagde pytest-gevallen. Er zijn geen extra taakstappen, meetresultaten, feedbackdatums of uitgevoerde hertests verzonnen. Applicatiecode, tests, branches en projectstructuur zijn bij deze documentatieaanpassing niet gewijzigd.

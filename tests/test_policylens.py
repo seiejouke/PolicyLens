@@ -178,6 +178,26 @@ def test_tp11_research_handles_no_matching_documents(app):
     app.search_text.set.assert_not_called()
 
 
+def test_load_corrupt_database_shows_message(app, tmp_path, monkeypatch):
+    # L-02: gebruik een tijdelijk bestand zodat echte opgeslagen data intact blijft.
+    database_path = tmp_path / "broken.json"
+    database_path.write_text("{broken", encoding="utf-8")
+    monkeypatch.setattr(app, "DATABASE_FILE", database_path)
+    previous_document = document("previous", "2026-11-19")
+    app.research_documents.append(previous_document)
+
+    app.load_research_results()
+
+    # Een leesfout mag de oude resultaten en het bronbestand niet vervangen.
+    app.research_status.set.assert_called_once_with(
+        "Lokale opslag kon niet worden gelezen."
+    )
+    app.research_results.delete.assert_not_called()
+    app.research_results.insert.assert_not_called()
+    assert app.research_documents == [previous_document]
+    assert database_path.read_text(encoding="utf-8") == "{broken"
+
+
 def document(identifier, date, kind="Motie"):
     """Create one predictable test document."""
     return {
