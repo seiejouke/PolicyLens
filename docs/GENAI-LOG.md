@@ -15,8 +15,11 @@ antwoorden uit keuzedialogen** vastgelegd. De eerdere onbekende datums zijn
 hersteld. Eén bestaand citaat is gecorrigeerd naar de oorspronkelijke tekst:
 `naar an absolute` was in de bron `naar aan absolute` (S4-09).
 
-Na die controle zijn leervragen S6-05 en S6-06 toegevoegd. Het actuele logboek bevat
-**49 gebruikersprompts** en vijf antwoorden uit keuzedialogen.
+Na die controle zijn leervragen S6-05 en S6-06 toegevoegd. Het overzicht tot en
+met 11 november bevat **49 gebruikersprompts** en vijf antwoorden uit
+keuzedialogen. Latere aanvullingen staan afzonderlijk onderaan; de twee prompts
+over de documentatietaak van 20 november maken de overige gesprekken van die
+dag niet alsnog volledig geregistreerd.
 
 De aanvullingen betreffen de projectomgeving en Git-uitleg op 30 oktober, de
 MVP-inschatting en bouw op 6 november, drie expliciete scope-/Tkinter-prompts en
@@ -47,7 +50,7 @@ automatische beoordelingssessies zijn niet als gebruikersprompts meegeteld.
 Bijlagen zijn niet gekopieerd; een verwijzing naar een screenshot blijft als
 onderdeel van de oorspronkelijke prompt zichtbaar.
 
-### Bronnenregister
+### Bronnenregister tot en met 11 november 2026
 
 | Bron | Periode | Lokale sessie-ID | Prompts |
 | --- | --- | --- | ---: |
@@ -591,3 +594,40 @@ vast. Als een bron ontbreekt, label de tekst als **reconstructie** of
   [sqlite3](https://docs.python.org/3/library/sqlite3.html) en
   [contextlib.closing](https://docs.python.org/3/library/contextlib.html#contextlib.closing).
   Alleen het logboek is bijgewerkt; de applicatiecode is ongewijzigd.
+
+### 2026-11-20 — afwijkingen en testbewijs in de LU4-verantwoording verwerken
+
+- **Bron:** het huidige Codex-gesprek van 20 november 2026. De afzonderlijke
+  prompttijden en een sessie-ID zijn hier niet vastgelegd. Deze aanvulling
+  registreert de onderstaande documentatietaak; eerdere beoordelingen en de
+  volledige pytest-dialoog van deze dag vallen buiten deze registratie.
+
+**Prompt S7-01 — 2026-11-20**
+
+> Realiseer ontbrekende functies of verantwoord een concrete ontwerpwijziging. Maak per story zichtbaar wat volledig, gedeeltelijk, gewijzigd of niet gerealiseerd is.
+>
+> Laten we verantwoorden wat er niet is; wat stel je voor;
+
+**Prompt S7-02 — 2026-11-20**
+
+> Dit klinkt goed, verwerk het in de documentatie
+
+- **AI-bijdrage:** de tien user stories vergeleken met de bestaande code en
+  een afwijkingstabel opgesteld met status, gerealiseerd gedrag en gevolgen
+  voor de gebruiker. De motivering is gebaseerd op de projectnotities over
+  beheersbaarheid, zelf opbouwen en gerichte AI-hulp. In de
+  [LU4-verantwoording](Verantwoording_LU4_PolicyLens_NL.docx), versie 1.1,
+  zijn die tabel, de bronwijziging, de aanvullende TinyDB-documentopslag en
+  de actuele testregistratie verwerkt. De testregistratie staat in hoofdstuk 5.
+- **Eigen keuze:** de gebruiker koos voor het verantwoorden van ontbrekende
+  functies en gaf opdracht het voorstel in de documentatie te verwerken.
+  Daarmee is geen gebruikersreview of volledige realisatie van v0.5 aangetoond.
+- **Controle/uitkomst:** `tests/test_policylens.py` opnieuw uitgevoerd met
+  pytest: **9 geslaagd**, verdeeld over onderdelen van TP-01, TP-02, TP-06 en
+  TP-11. De daadwerkelijke uitvoer staat in
+  [testresultaten LU4](testresultaten_LU4_2026-11-20.txt). De suite gebruikt
+  vaste gegevens en vervangt CSV-inlezen en schermonderdelen; echte
+  CSV-lezing, TinyDB en fysieke schermbediening vallen buiten die negen
+  gevallen. Openstaande foutafhandeling, opslagtests en gebruikersfeedback
+  zijn als beperkingen opgenomen. Het LU3-ontwerp v0.5 blijft de
+  vergelijkingsbasis.
